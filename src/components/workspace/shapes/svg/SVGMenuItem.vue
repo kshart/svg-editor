@@ -1,0 +1,24 @@
+<template>
+  <div>
+    <component v-for="child in object.childs" key="_key" :is="'svg-' + child.name + '-menu-item'" :object="child" />
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+import { ShapeMenuItem } from '@/components/workspace/shapes/Shape'
+import SVGLayerMenuItem from './SVGLayerMenuItem'
+import GroupMenuItem from '../basic/GroupMenuItem'
+import RectMenuItem from '../basic/RectMenuItem'
+import CircleMenuItem from '../basic/CircleMenuItem'
+
+Vue.component('svg-layer-menu-item', SVGLayerMenuItem)
+Vue.component('svg-g-menu-item', GroupMenuItem)
+Vue.component('svg-rect-menu-item', RectMenuItem)
+Vue.component('svg-circle-menu-item', CircleMenuItem)
+
+export default {
+  name: 'SVG',
+  extends: ShapeMenuItem
+}
+</script>
