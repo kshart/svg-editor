@@ -71,7 +71,6 @@ export default {
           break
       }
       if (this.action.start) this.action.start()
-      console.log(mode)
     }
   },
   data () {

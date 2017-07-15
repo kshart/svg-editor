@@ -1,7 +1,8 @@
 <template>
   <div>
     <input v-if="isEditTitle" class="head" v-model="object.title" @blur="isEditTitle = !true">
-    <div v-else class="head" @dblclick="isEditTitle = true" @click="isOpenTree = !isOpenTree">
+    <div v-else class="head" @click="isOpenTree = !isOpenTree">
+      <md-icon @click.native.stop="changeVisible()" md-iconset="fa fa-eye"></md-icon>
       {{object.title || 'Группа'}}
     </div>
     <div v-if="isOpenTree" class="body">
@@ -19,6 +20,11 @@ export default {
     return {
       isOpenTree: true,
       isEditTitle: false
+    }
+  },
+  methods: {
+    changeVisible (mode) {
+      this.object.visible = !this.object.visible
     }
   },
   extends: ShapeMenuItem

@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     createLayer () {
-      console.log(this.$store.commit('document/CREATE_LAYER', { page: this.page }))
+      this.$store.commit('document/CREATE_LAYER', { page: this.page })
     },
     transitionComplete (el) {
       el.style.height = '100px'

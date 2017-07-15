@@ -1,11 +1,15 @@
 <template>
-  <div class="workspace">
+  <div class="workspace" @click="listPoints">
     <page-manager :pages="pages" selection="123"/>
-    <document :data="document"/>
+    <document v-if="document" :data="document" ref="doc"/>
+    <div class="points" :style="documentRect">
+      <div v-for="point in points" :style="{left: point.x * 100 + '%', top: point.y * 100 + '%'}" class="point" />
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PageManager from './panels/PageManager'
 import Document from './panels/Document'
 
@@ -51,6 +55,35 @@ export default {
     },
     document () {
       return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
+    },
+    ...mapGetters('document', [
+      'getPoints'
+    ])
+  },
+  data () {
+    return {
+      documentRect: null,
+      points: []
+    }
+  },
+  methods: {
+    listPoints () {
+      if (!document || !this.$refs.doc) return
+      const viewport = this.$refs.doc.getViewport()
+      const {left, right, top, bottom} = this.$refs.doc.$el.getBoundingClientRect()
+      this.documentRect = {
+        left: left + 'px',
+        width: (right - left) + 'px',
+        top: top + 'px',
+        height: (bottom - top) + 'px'
+      }
+      console.log((left - right), viewport)
+      this.points = this.getPoints.map(point => {
+        return {
+          x: (point.x - viewport.x) / viewport.width,
+          y: (point.y - viewport.y) / viewport.height
+        }
+      })
     }
   },
   components: { PageManager, Document }
@@ -58,10 +91,21 @@ export default {
 </script>
 
 <style scoped>
-.workspace {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: stretch;
-}
+  .workspace {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+  }
+  .points {
+    position: fixed;
+  }
+  .point {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    background-color: #F00;
+  }
 </style>

@@ -41,6 +41,24 @@ const state = {
   ]
 }
 
+const getters = {
+  getPoints: (state, getters) => {
+    const points = (element, array) => {
+      switch (element.name) {
+        case 'svg':
+        case 'g':
+          element.childs.forEach(child => points(child, array))
+          return
+        case 'rect':
+          array.push({x: element.attributes.x | 0, y: element.attributes.y | 0})
+      }
+    }
+    let array = []
+    points(state.pages[0].data, array)
+    return array
+  }
+}
+
 const mutations = {
   [types.LOAD] (state, { document }) {
     const doc = parser(document)
@@ -52,8 +70,6 @@ const mutations = {
       childs: []
     }
     let hashTable = []
-    console.log(doc)
-    console.log(document)
     const load = (element, { name, children, attributes }) => {
       let obj = null
       for (let attr in attributes) {
@@ -78,6 +94,7 @@ const mutations = {
             attributes,
             _key: Symbol(),
             name: 'g',
+            visible: true,
             childs: []
           }
           children.forEach(ch => load(obj, ch))
@@ -100,8 +117,6 @@ const mutations = {
       element.childs.push(obj)
     }
     load(data, doc.root)
-    console.log(data.childs[0])
-    console.log(hashTable)
 
     state.pages.push({
       _key: Symbol(),
@@ -137,5 +152,6 @@ const mutations = {
 export default {
   namespaced: true,
   state,
-  mutations
+  mutations,
+  getters
 }

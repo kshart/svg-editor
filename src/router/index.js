@@ -21,7 +21,7 @@ export default new Router({
       props: true
     },
     {
-      path: '/test',
+      path: '/',
       name: 'Workspace',
       component: Workspace,
       props: true

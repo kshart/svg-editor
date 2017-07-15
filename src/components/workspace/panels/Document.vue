@@ -1,5 +1,5 @@
 <template>
-  <svg-main v-if="data" :object="data" />
+  <svg-main v-if="data" class="svg" :object="data" ref="svg" />
 </template>
 
 <script>
@@ -15,6 +15,17 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    getViewport () {
+      return this.$refs.svg.$el.viewBox.baseVal
+    }
   }
 }
 </script>
+
+<style scoped>
+  .svg {
+    width: auto;
+  }
+</style>

@@ -58,7 +58,6 @@ const getters = {
     result.sort((a, b) => {
       return b.sortWeight - a.sortWeight
     })
-    console.log(result)
     return result
   }
 }
