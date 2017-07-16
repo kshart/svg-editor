@@ -1,6 +1,12 @@
 export const Shape = {
   props: {
     object: Object
+  },
+  mounted () {
+    this.object._el = this.$el
+  },
+  destroyed () {
+    this.object._el = null
   }
 }
 

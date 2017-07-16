@@ -42,21 +42,6 @@ const state = {
 }
 
 const getters = {
-  getPoints: (state, getters) => {
-    const points = (element, array) => {
-      switch (element.name) {
-        case 'svg':
-        case 'g':
-          element.childs.forEach(child => points(child, array))
-          return
-        case 'rect':
-          array.push({x: element.attributes.x | 0, y: element.attributes.y | 0})
-      }
-    }
-    let array = []
-    points(state.pages[0].data, array)
-    return array
-  }
 }
 
 const mutations = {
@@ -98,7 +83,6 @@ const mutations = {
             childs: []
           }
           children.forEach(ch => load(obj, ch))
-          // console.log(payload)
           break
         case 'rect':
         case 'use':
@@ -117,7 +101,18 @@ const mutations = {
       element.childs.push(obj)
     }
     load(data, doc.root)
-
+    /* const registerUse = (element) => {
+      switch (element.name) {
+        case 'svg':
+        case 'g':
+          element.childs.forEach(ch => registerUse(ch))
+          break
+        case 'use':
+          element.link = hashTable[element.attributes.href.substr(1)]
+          break
+      }
+    }
+    registerUse(data.childs[0]) */
     state.pages.push({
       _key: Symbol(),
       id: ++generator,
