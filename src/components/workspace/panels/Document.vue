@@ -17,6 +17,9 @@ export default {
     }
   },
   methods: {
+    getBox () {
+      return this.$refs.svg.$el.getBoundingClientRect()
+    },
     getViewport () {
       return this.$refs.svg.$el.viewBox.baseVal
     }

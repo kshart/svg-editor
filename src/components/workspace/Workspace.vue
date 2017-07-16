@@ -23,7 +23,7 @@ export default {
       <rect id="bottom-right" width="50" height="50" rx="4" fill="#de8500"/>
       <use stroke="#f90" stroke-width="22.6" xlink:href="#a"/>
       <circle r="26"/>
-      <use stroke="#000" stroke-width="12" xlink:href="#a"/>
+      <!--<use stroke="#000" stroke-width="12" xlink:href="#a"/>
       <g id="a">
         <g id="b">
           <g id="c">
@@ -36,17 +36,18 @@ export default {
         <use transform="rotate(45)" xlink:href="#b"/>
       </g>
       <path id="text-backdrop" d="m44.68 0v40c0 3.333-1.667 5-5 5h-79.38c-3.333 0-5-1.667-5-5v-40"/>
-      <path id="shine" d="m36 4.21c2.9 0 5.3 2.4 5.3 5.3v18c-27.6-3.4-54.9-8-82-7.7v-10.2c0-2.93 2.4-5.3 5.3-5.3z" fill="#3f3f3f"/>
-      <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
+      <path id="shine" d="m36 4.21c2.9 0 5.3 2.4 5.3 5.3v18c-27.6-3.4-54.9-8-82-7.7v-10.2c0-2.93 2.4-5.3 5.3-5.3z" fill="#3f3f3f"/>-->
       <g id="svg-text" stroke="#fff" stroke-width="6.4">
         <g id="s">
           <path fill="none" d="m-31.74 31.17a8.26 8.26 0 1 0 8.26 -8.26 8.26 8.26 0 1 1 8.26 -8.26M23.23 23h8.288v 8.26a8.26 8.26 0 0 1 -16.52 0v-16.52a8.26 8.26 0 0 1 16.52 0"/>
-          <g stroke-width=".5" stroke="#000">
+          <!--<g stroke-width=".5" stroke="#000">
             <path d="m4.76 3h6.83l-8.24 39.8h-6.85l-8.26-39.8h6.85l4.84 23.3z" fill="#fff"/>
             <path d="m23.23 19.55v6.9m4.838-11.71h6.9m-70.16 16.43h6.9m9.62-16.52h6.9" stroke-linecap="square"/>
-          </g>
+          </g>-->
         </g>
       </g>
+      <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
+      <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })
   },
   computed: {
@@ -68,17 +69,94 @@ export default {
   },
   methods: {
     listPoints () {
+      const settings = {
+        center: false,
+        centerEdges: false,
+        edges: false
+      }
       if (!document || !this.$refs.doc) return
       const viewport = this.$refs.doc.getViewport()
-      const {left, right, top, bottom} = this.$refs.doc.$el.getBoundingClientRect()
+      const {left, right, top, bottom} = this.$refs.doc.getBox()
       this.documentRect = {
         left: left + 'px',
         width: (right - left) + 'px',
         top: top + 'px',
         height: (bottom - top) + 'px'
       }
-      console.log((left - right), viewport)
-      this.points = this.getPoints.map(point => {
+      let array = []
+      const points = (element) => {
+        switch (element.nodeName) {
+          case 'svg':
+          case 'g':
+            for (const i in element.childNodes) points(element.childNodes[i])
+            return
+          case 'rect': {
+            const x = element.x.baseVal.value
+            const y = element.y.baseVal.value
+            const width = element.width.baseVal.value
+            const height = element.height.baseVal.value
+            if (settings.center) {
+              array.push({x: x + width / 2, y: y + height / 2})
+            }
+            if (settings.edges) {
+              array.push({x, y})
+              array.push({x: x + width, y})
+              array.push({x, y: y + height})
+              array.push({x: x + width, y: y + height})
+            }
+            if (settings.centerEdges) {
+              array.push({x: x + width / 2, y})
+              array.push({x: x + width / 2, y: y + height})
+              array.push({x, y: y + height / 2})
+              array.push({x: x + width, y: y + height / 2})
+            }
+            return
+          }
+          case 'circle': {
+            const x = element.cx.baseVal.value
+            const y = element.cy.baseVal.value
+            const r = element.r.baseVal.value
+            if (settings.center) {
+              array.push({x, y})
+            }
+            if (settings.edges || settings.centerEdges) {
+              array.push({x: x + r, y})
+              array.push({x: x - r, y})
+              array.push({x, y: y + r})
+              array.push({x, y: y - r})
+            }
+            return
+          }
+          case 'path': {
+            // for (var key in element) console.log(key, typeof element[key])
+            element.getPathData().forEach(seg => {
+              for (let i = 0; i < seg.values.length; i += 2) {
+                if (seg.type === 'M') {
+                  let [x, y] = seg.values
+                  array.push({x, y})
+                } else if (seg.type === 'L') {
+                  let [x, y] = seg.values
+                  array.push({x, y})
+                } else if (seg.type === 'C') {
+                  let [x1, y1, x2, y2, x, y] = seg.values
+                  array.push({x, y})
+                  array.push({x1, y1})
+                  array.push({x2, y2})
+                } else {
+                  console.info(seg.type)
+                }
+              }
+            })
+            console.info(element.getPathData())
+            break
+          }
+          case 'use':
+            // for (var key in element) console.log(key, typeof element[key])
+            console.dir(element.instanceRoot)
+        }
+      }
+      points(this.$refs.doc.$el)
+      this.points = array.map(point => {
         return {
           x: (point.x - viewport.x) / viewport.width,
           y: (point.y - viewport.y) / viewport.height

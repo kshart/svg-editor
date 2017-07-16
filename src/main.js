@@ -1,3 +1,4 @@
+import './path-data-polyfill'
 import 'normalize.css'
 import Vue from 'vue'
 import App from './App'
