@@ -4,8 +4,11 @@ const types = {
   LOAD: 'LOAD',
   CREATE: 'CREATE',
   CREATE_PAGE: 'CREATE_PAGE',
-  CREATE_LAYER: 'CREATE_LAYER'
+  CREATE_LAYER: 'CREATE_LAYER',
+  UPDATE_ELEMENT: 'UPDATE_ELEMENT'
 }
+
+export const hashElements = new Map()
 
 const state = {
   _id_generator: 1,
@@ -51,10 +54,11 @@ const mutations = {
       return false
     }
     let generator = 0
+    const elements = []
     let data = {
       childs: []
     }
-    let hashTable = []
+    // let hashTable = []
     const load = (element, { name, children, attributes }) => {
       let obj = null
       for (let attr in attributes) {
@@ -97,7 +101,8 @@ const mutations = {
         default:
           return
       }
-      if (obj.attributes.id) hashTable[obj.attributes.id] = obj
+      // if (obj.attributes.id) hashTable[obj.attributes.id] = obj
+      elements.push(obj)
       element.childs.push(obj)
     }
     load(data, doc.root)
@@ -118,6 +123,7 @@ const mutations = {
       id: ++generator,
       name: 'Name 1',
       description: '',
+      elements,
       data: data.childs[0]
     })
     state._id_generator = generator
@@ -134,14 +140,10 @@ const mutations = {
       description,
       childs: []
     })
+  },
+  [types.UPDATE_ELEMENT] (state, { object, event, callback }) {
+    callback(object, event)
   }
-  /* [types.CREATE_LAYER] (state, { page }) {
-    page.childs.push({
-      id: ++state._id_generator,
-      name: 'svg-layer',
-      childs: []
-    })
-  } */
 }
 
 export default {

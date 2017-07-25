@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'menu-project',
+  name: 'MenuProject',
   data () {
     return {
       search: null,
@@ -44,129 +44,130 @@ export default {
   }
 }
 </script>
+
 <style scoped>
-.menu {
-  position: relative;
-  width: 400px;
-  color: #FFF;
-  background-color: #292929;
-  flex-shrink: 0;
-}
+  .menu {
+    position: relative;
+    width: 400px;
+    color: #FFF;
+    background-color: #292929;
+    flex-shrink: 0;
+  }
 
-.search {
-  margin: 0;
-  padding: 15px;
-  padding-top: 0;
-}
-.search:after {
-  content: '';
-  display: block;
-  visibility: hidden;
-  position: absolute;
-  top: 70px;
-  left: 0;
-  right: 10px;
-  height: 15px;
-  background: linear-gradient(to bottom, rgba(41,41,41,1) 0%,rgba(41,41,41,0) 100%);
-  z-index: 2;
-}
-.search.shadow:after {
-  visibility: visible;
-}
-.md-input-container label,
-.md-input-container.md-has-value label,
-.md-input-container.md-input-focused label {
-  color: #AAA;
-}
-.md-input-container label {
-  padding-left: 5px;
-}
-.md-input-container.md-input-focused:after {
-  background-color: #999;
-}
-.md-input-container input,
-.md-input-container textarea {
-  color: #999;
-  background-color: #444;
-  border: none;
-  width: 100%;
-  margin:0;
-  padding: 5px;
-  box-sizing: border-box;
-  transition: background-color .2s ease-out, color .2s ease-out;
-}
-.md-input-container.md-has-value input,
-.md-input-container.md-has-value textarea {
-  color: #AAA;
-  background-color: #444;
-  transition: background-color .2s ease-out, color .2s ease-out;
-}
-.md-input-container.md-input-focused input,
-.md-input-container.md-input-focused textarea {
-  color: #AAA;
-  text-shadow: 0 0 0 #AAA;
-}
+  .search {
+    margin: 0;
+    padding: 15px;
+    padding-top: 0;
+  }
+  .search:after {
+    content: '';
+    display: block;
+    visibility: hidden;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 10px;
+    height: 15px;
+    background: linear-gradient(to bottom, rgba(41,41,41,1) 0%,rgba(41,41,41,0) 100%);
+    z-index: 2;
+  }
+  .search.shadow:after {
+    visibility: visible;
+  }
+  .md-input-container label,
+  .md-input-container.md-has-value label,
+  .md-input-container.md-input-focused label {
+    color: #AAA;
+  }
+  .md-input-container label {
+    padding-left: 5px;
+  }
+  .md-input-container.md-input-focused:after {
+    background-color: #999;
+  }
+  .md-input-container input,
+  .md-input-container textarea {
+    color: #999;
+    background-color: #444;
+    border: none;
+    width: 100%;
+    margin:0;
+    padding: 5px;
+    box-sizing: border-box;
+    transition: background-color .2s ease-out, color .2s ease-out;
+  }
+  .md-input-container.md-has-value input,
+  .md-input-container.md-has-value textarea {
+    color: #AAA;
+    background-color: #444;
+    transition: background-color .2s ease-out, color .2s ease-out;
+  }
+  .md-input-container.md-input-focused input,
+  .md-input-container.md-input-focused textarea {
+    color: #AAA;
+    text-shadow: 0 0 0 #AAA;
+  }
 
-.item-list {
-  width: 100%;
-  top: 70px;
-  bottom: 0;
-  position: absolute;
-  overflow-y: scroll;
-  z-index: 1;
-}
-.item-list::-webkit-scrollbar {
-  background-color: #292929;
-  width: 10px;
-}
-.item-list::-webkit-scrollbar-button {
-  display: none;
-}
-.item-list::-webkit-scrollbar-thumb {
-  background-color: #555;
-}
-.item-list::-webkit-scrollbar-thumb:hover {
-  background-color: #5A5A5A;
-}
+  .item-list {
+    width: 100%;
+    top: 70px;
+    bottom: 0;
+    position: absolute;
+    overflow-y: scroll;
+    z-index: 1;
+  }
+  .item-list::-webkit-scrollbar {
+    background-color: #292929;
+    width: 10px;
+  }
+  .item-list::-webkit-scrollbar-button {
+    display: none;
+  }
+  .item-list::-webkit-scrollbar-thumb {
+    background-color: #555;
+  }
+  .item-list::-webkit-scrollbar-thumb:hover {
+    background-color: #5A5A5A;
+  }
 
-.item {
-  padding: 15px;
-  cursor: pointer;
-  transition: background-color .2s ease-out;
-}
-.item:hover {
-  background-color: #444;
-  transition: background-color .2s ease-out;
-}
-.item:active {
-  background-color: #555;
-  transition: background-color .1s ease-out;
-}
+  .item {
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color .2s ease-out;
+  }
+  .item:hover {
+    background-color: #444;
+    transition: background-color .2s ease-out;
+  }
+  .item:active {
+    background-color: #555;
+    transition: background-color .1s ease-out;
+  }
 
-.item .name {
-  margin: 0;
-  margin-bottom: 5px;
-  font-size: 14pt;
-  color: #BBB;
-}
-.item .description {
-  margin: 0;
-  margin-bottom: 2px;
-  font-size: 10pt;
-  color: #999;
-}
-.item .last-chage {
-  margin: 0;
-  font-size: 10pt;
-  color: #888;
-}
+  .item .name {
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 14pt;
+    color: #BBB;
+  }
+  .item .description {
+    margin: 0;
+    margin-bottom: 2px;
+    font-size: 10pt;
+    color: #999;
+  }
+  .item .last-chage {
+    margin: 0;
+    font-size: 10pt;
+    color: #888;
+  }
 
-.loader {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-.loader .md-spinner {
-  overflow: hidden;
-}
+  .loader {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .loader .md-spinner {
+    overflow: hidden;
+  }
 </style>

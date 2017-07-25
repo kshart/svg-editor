@@ -1,12 +1,14 @@
+import { hashElements } from '@/store/modules/document'
+
 export const Shape = {
   props: {
     object: Object
   },
   mounted () {
-    this.object._el = this.$el
+    hashElements.set(this.object._key, this.$el)
   },
   destroyed () {
-    this.object._el = null
+    hashElements.delete(this.object._key)
   }
 }
 
@@ -18,4 +20,16 @@ export const ShapeMenuItem = {
   props: {
     object: Object
   }
+}
+export const ShapeOptionsConfig = {
+  tools: [
+    {
+      component: 'StringInput',
+      title: 'Name',
+      change: (object, e) => {
+        console.log(object, e)
+        object.title = e.target.value
+      }
+    }
+  ]
 }

@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: 'page-project',
+  name: 'PageProject',
   props: ['id'],
   data () {
     return {
@@ -58,30 +58,27 @@ export default {
   }
 }
 </script>
+
 <style scoped>
-.page {
-  width: 100%;
-  padding: 15px;
-  color: #BBB;
-  overflow-y: scroll;
-}
-.title {
-  margin: 0;
-  font-size: 18pt;
-}
-.description {
-  margin: 15px 0;
-  font-size: 12pt;
-  color: #999;
-}
-.list {
-  padding: 0;
-}
-.list li {
-  list-style-type: none;
-}
-
-.tasks {
-
-}
+  .page {
+    width: 100%;
+    padding: 15px;
+    color: #BBB;
+    overflow-y: scroll;
+  }
+  .title {
+    margin: 0;
+    font-size: 18pt;
+  }
+  .description {
+    margin: 15px 0;
+    font-size: 12pt;
+    color: #999;
+  }
+  .list {
+    padding: 0;
+  }
+  .list li {
+    list-style-type: none;
+  }
 </style>

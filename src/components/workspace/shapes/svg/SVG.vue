@@ -27,14 +27,14 @@ Vue.directive('attr', {
 
 export default {
   name: 'SVG',
-  extends: Shape
+  mixins: [ Shape ]
 }
 </script>
 
 <style scoped>
-svg {
-  height: 100%;
-  width: 100%;
-  background-color: #444;
-}
+  svg {
+    height: 100%;
+    width: 100%;
+    background-color: #444;
+  }
 </style>

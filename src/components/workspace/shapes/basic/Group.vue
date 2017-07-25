@@ -8,14 +8,7 @@
 import { Shape } from '@/components/workspace/shapes/Shape'
 
 export default {
-  name: 'SVG-Group',
-  extends: Shape,
-  mounted () {
-    this.$el.id = this.object.attributes.id
-  }
+  name: 'SVGGroup',
+  mixins: [ Shape ]
 }
-
-/* export class GroupObject {
-  name = 'SVG-Group'
-} */
 </script>

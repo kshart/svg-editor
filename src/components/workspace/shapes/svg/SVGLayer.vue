@@ -9,10 +9,6 @@ import { Shape } from '@/components/workspace/shapes/Shape'
 
 export default {
   name: 'SVG-Layer',
-  extends: Shape
+  mixins: [ Shape ]
 }
-
-/* export class LayerObject {
-  name = 'SVG-Layer'
-} */
 </script>

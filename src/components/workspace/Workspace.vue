@@ -1,6 +1,9 @@
 <template>
   <div class="workspace" @click="listPoints">
-    <page-manager :pages="pages" selection="123"/>
+    <div style="width:400px;display:flex;flex-direction:column;">
+      <page-manager :pages="pages" selection="*****"/>
+      <options v-if="document" :object="document.childs[0]"/>
+    </div>
     <document v-if="document" :data="document" ref="doc"/>
     <div class="points" :style="documentRect">
       <div v-for="point in points" :style="{left: point.x * 100 + '%', top: point.y * 100 + '%'}" class="point" />
@@ -12,9 +15,28 @@
 import { mapGetters } from 'vuex'
 import PageManager from './panels/PageManager'
 import Document from './panels/Document'
+import Options from './panels/Options'
 
 export default {
   name: 'Workspace',
+  components: { PageManager, Document, Options },
+  data () {
+    return {
+      documentRect: null,
+      points: []
+    }
+  },
+  computed: {
+    pages () {
+      return this.$store.state.document.pages
+    },
+    document () {
+      return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
+    },
+    ...mapGetters('document', [
+      'getPoints'
+    ])
+  },
   mounted () {
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
@@ -49,23 +71,6 @@ export default {
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })
-  },
-  computed: {
-    pages () {
-      return this.$store.state.document.pages
-    },
-    document () {
-      return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
-    },
-    ...mapGetters('document', [
-      'getPoints'
-    ])
-  },
-  data () {
-    return {
-      documentRect: null,
-      points: []
-    }
   },
   methods: {
     listPoints () {
@@ -143,11 +148,11 @@ export default {
                   array.push({x1, y1})
                   array.push({x2, y2})
                 } else {
-                  console.info(seg.type)
+                  // console.info(seg.type)
                 }
               }
             })
-            console.info(element.getPathData())
+            // console.info(element.getPathData())
             break
           }
           case 'use':
@@ -163,8 +168,7 @@ export default {
         }
       })
     }
-  },
-  components: { PageManager, Document }
+  }
 }
 </script>
 

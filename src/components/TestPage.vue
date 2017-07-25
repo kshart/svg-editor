@@ -23,7 +23,20 @@ const render = {
 }
 
 export default {
-  name: 'test-page',
+  name: 'TestPage',
+  data () {
+    return {
+      action: {
+        mode: null,
+        cursor: '',
+        click: e => e,
+        move: e => e
+      },
+      context: null,
+      actionContext: null,
+      shapeState: ''
+    }
+  },
   mounted () {
     this.context = this.$refs.canvas.getContext('2d')
     this.actionContext = this.$refs.actionCanvas.getContext('2d')
@@ -72,34 +85,21 @@ export default {
       }
       if (this.action.start) this.action.start()
     }
-  },
-  data () {
-    return {
-      action: {
-        mode: null,
-        cursor: '',
-        click: e => e,
-        move: e => e
-      },
-      context: null,
-      actionContext: null,
-      shapeState: ''
-    }
   }
 }
 </script>
 
 <style scoped>
-.root {
-  position: relative;
-  width: 100%;
-}
-.layer {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  width: 500px;
-  height: 500px;
-  background-color: #FFF;
-}
+  .root {
+    position: relative;
+    width: 100%;
+  }
+  .layer {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 500px;
+    height: 500px;
+    background-color: #FFF;
+  }
 </style>

@@ -26,7 +26,8 @@ import '@/assets/css/font-awesome.css'
 Vue.component('svg-menu-item', SVGMenuItem)
 
 export default {
-  name: 'menu-project',
+  name: 'PageItem',
+  components: { ContextMenu },
   props: { page: Object },
   data () {
     return {
@@ -43,9 +44,6 @@ export default {
       el.style.overflow = 'hidden'
       el.style.transition = 'all 1s'
     }
-  },
-  components: {
-    ContextMenu
   }
 }
 </script>

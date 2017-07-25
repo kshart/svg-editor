@@ -23,6 +23,6 @@ Vue.component('svg-use-menu-item', UseMenuItem)
 
 export default {
   name: 'SVG',
-  extends: ShapeMenuItem
+  mixins: [ ShapeMenuItem ]
 }
 </script>

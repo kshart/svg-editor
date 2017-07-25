@@ -1,13 +1,17 @@
 <template>
-  <div class="menu show" :style="{width:show?'230px':'50px'}">
+  <div class="menu show" :style="{width: show ? '230px' : '50px'}">
     <div class="list">
       <div class="head">
-        <h1 v-if="show" class="title">svg-editor <span class="version">v{{version}}</span></h1>
+        <h1 v-if="show" class="title">
+          svg-editor <span class="version">v{{version}}</span>
+        </h1>
         <h1 v-else @click="open" class="title litle">S</h1>
       </div>
       <div v-for="item in items" class="item" @click="select(item.name)">
-        <transition name="fade"><span v-if="show">{{item.title}}</span></transition>
-        <md-icon md-iconset="fa fa-lg" class="image" :class="item.icon"></md-icon>
+        <transition name="fade">
+          <span v-if="show">{{item.title}}</span>
+        </transition>
+        <md-icon md-iconset="fa fa-lg" class="image" :class="item.icon" />
       </div>
     </div>
   </div>
@@ -21,19 +25,6 @@ import '@/assets/css/font-awesome.css'
 
 export default {
   name: 'menu-main',
-  computed: mapState({
-    show: state => state.workspace.menuFull
-  }),
-  methods: {
-    open () {
-      this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: true })
-    },
-    select (name) {
-      this.show = false
-      this.$store.commit('workspace/CHANGE_SECOND_MENU', { name })
-      this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: false })
-    }
-  },
   data () {
     return {
       version,
@@ -55,98 +46,110 @@ export default {
         }
       ]
     }
+  },
+  computed: mapState({
+    show: state => state.workspace.menuFull
+  }),
+  methods: {
+    open () {
+      this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: true })
+    },
+    select (name) {
+      this.show = false
+      this.$store.commit('workspace/CHANGE_SECOND_MENU', { name })
+      this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: false })
+    }
   }
 }
 </script>
+
 <style scoped>
-.menu {
-  position: relative;
-  color: #FFF;
-  background-color: #333;
-  transition: width .3s ease-out;
-  flex-shrink: 0;
-}
+  .menu {
+    position: relative;
+    color: #FFF;
+    background-color: #333;
+    transition: width .3s ease-out;
+    flex-shrink: 0;
+  }
 
-.title {
-  margin: 0;
-  padding: 15px;
-  font-size: 24pt;
-  color: #EEE;
-  text-align: center;
-  white-space: nowrap;
-}
-.title.litle {
-  padding: 15px 5px;
-}
-.version {
-  font-size: 10pt;
-  color: #AAA;
-}
+  .title {
+    margin: 0;
+    padding: 15px;
+    font-size: 24pt;
+    color: #EEE;
+    text-align: center;
+    white-space: nowrap;
+  }
+  .title.litle {
+    padding: 15px 5px;
+  }
+  .version {
+    font-size: 10pt;
+    color: #AAA;
+  }
 
-.head {
-  height: 50px;
-}
+  .head {
+    height: 50px;
+  }
 
-.list {
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  position: absolute;
-  overflow-y: auto;
-  z-index: 1;
-}
-.list::-webkit-scrollbar {
-  background-color: #292929;
-  width: 10px;
-}
-.list::-webkit-scrollbar-button {
-  display: none;
-}
-.list::-webkit-scrollbar-thumb {
-  background-color: #555;
-}
-.list::-webkit-scrollbar-thumb:hover {
-  background-color: #5A5A5A;
-}
+  .list {
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    overflow-y: auto;
+    z-index: 1;
+  }
+  .list::-webkit-scrollbar {
+    background-color: #292929;
+    width: 10px;
+  }
+  .list::-webkit-scrollbar-button {
+    display: none;
+  }
+  .list::-webkit-scrollbar-thumb {
+    background-color: #555;
+  }
+  .list::-webkit-scrollbar-thumb:hover {
+    background-color: #5A5A5A;
+  }
 
-.item {
-  display: block;
-  position: relative;
-  height: 50px;
-  padding: 15px;
-  margin: 0;
-  margin-bottom: 5px;
-  color: #EEE;
-  font-size: 14pt;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color .2s ease-out;
-}
-.item span.fade-enter-active,
-.item span.fade-leave-active {
-  transition: opacity .3s
-}
-.item span.fade-enter,
-.item span.fade-leave-to {
-  opacity: 0
-}
-.item:hover {
-  background-color: #444;
-  transition: background-color .2s ease-out;
-}
-.item:active {
-  background-color: #555;
-  transition: background-color .1s ease-out;
-}
+  .item {
+    display: block;
+    position: relative;
+    height: 50px;
+    padding: 15px;
+    margin: 0;
+    margin-bottom: 5px;
+    color: #EEE;
+    font-size: 14pt;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color .2s ease-out;
+  }
+  .item span.fade-enter-active,
+  .item span.fade-leave-active {
+    transition: opacity .3s
+  }
+  .item span.fade-enter,
+  .item span.fade-leave-to {
+    opacity: 0
+  }
+  .item:hover {
+    background-color: #444;
+    transition: background-color .2s ease-out;
+  }
+  .item:active {
+    background-color: #555;
+    transition: background-color .1s ease-out;
+  }
 
-.item .name {
-}
-.image {
-  position: absolute;
-  display: block;
-  /*height: 40px;
-  width: 40px;*/
-  top: 15px;
-  right: 13px;
-}
+  .image {
+    position: absolute;
+    display: block;
+    /*height: 40px;
+    width: 40px;*/
+    top: 15px;
+    right: 13px;
+  }
 </style>
