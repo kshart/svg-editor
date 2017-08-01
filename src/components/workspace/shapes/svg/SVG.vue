@@ -1,5 +1,5 @@
 <template>
-  <svg v-attr="object.attributes">
+  <svg>
     <component v-for="child in object.childs" key="_key" :is="'svg-' + child.name" :object="child" />
   </svg>
 </template>
@@ -17,13 +17,6 @@ Vue.component('svg-rect', SVGBasic)
 Vue.component('svg-circle', SVGBasic)
 Vue.component('svg-use', SVGBasic)
 Vue.component('svg-path', SVGBasic)
-Vue.directive('attr', {
-  inserted: function (el, binding, vnode) {
-    for (const e in binding.value) {
-      el.setAttribute(e, binding.value[e])
-    }
-  }
-})
 
 export default {
   name: 'SVG',

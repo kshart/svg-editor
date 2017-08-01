@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'StringInput',
+  name: 'NumberInput',
   props: {
     title: String
   }

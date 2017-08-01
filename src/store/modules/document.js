@@ -74,6 +74,7 @@ const mutations = {
             attributes,
             _key: Symbol(),
             name,
+            title: '',
             childs: []
           }
           children.forEach(ch => load(obj, ch))
@@ -84,7 +85,8 @@ const mutations = {
             _key: Symbol(),
             name: 'g',
             visible: true,
-            childs: []
+            childs: [],
+            title: ''
           }
           children.forEach(ch => load(obj, ch))
           break
@@ -95,7 +97,8 @@ const mutations = {
           obj = {
             attributes,
             _key: Symbol(),
-            name
+            name,
+            title: ''
           }
           break
         default:

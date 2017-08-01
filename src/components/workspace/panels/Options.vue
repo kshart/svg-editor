@@ -1,7 +1,7 @@
 <template>
   <div>
     Options
-    <component v-for="conf in tools" :is="conf.component" @change="change(conf, $event)"/>
+    <component v-for="conf in tools" :is="conf.component" :title="conf.title" @change="change(conf, $event)"/>
   </div>
 </template>
 

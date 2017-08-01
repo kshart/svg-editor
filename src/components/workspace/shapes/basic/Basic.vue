@@ -1,5 +1,5 @@
 <template>
-  <component :is="object.name" v-attr="object.attributes"/>
+  <component :is="object.name"/>
 </template>
 
 <script>

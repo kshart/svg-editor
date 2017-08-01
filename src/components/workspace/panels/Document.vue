@@ -1,5 +1,5 @@
 <template>
-  <svg-main v-if="data" class="svg" :object="data" ref="svg" />
+  <svg-main v-if="data" class="svg" :object="data" ref="svg"/>
 </template>
 
 <script>

@@ -4,7 +4,13 @@
       <page-manager :pages="pages" selection="*****"/>
       <options v-if="document" :object="document.childs[0]"/>
     </div>
-    <document v-if="document" :data="document" ref="doc"/>
+    <document
+      v-if="document"
+      ref="doc"
+      :data="document"
+      @mousedown.native="startDragAndDrop"
+      @mouseup.native="stopDragAndDrop"
+    />
     <div class="points" :style="documentRect">
       <div v-for="point in points" :style="{left: point.x * 100 + '%', top: point.y * 100 + '%'}" class="point" />
     </div>
@@ -13,6 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { Matrix3, Vector3 } from 'three'
 import PageManager from './panels/PageManager'
 import Document from './panels/Document'
 import Options from './panels/Options'
@@ -22,6 +29,7 @@ export default {
   components: { PageManager, Document, Options },
   data () {
     return {
+      dragAndDrop: null,
       documentRect: null,
       points: []
     }
@@ -40,12 +48,14 @@ export default {
   mounted () {
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
+      <!--<rect width="100" height="100" fill="#f90"/>-->
+      
       <rect id="background" x="-50" y="-50" width="100" height="100" rx="4" fill="#f90"/>
       <rect id="top-left" x="-50" y="-50" width="50" height="50" rx="4" fill="#ffb13b"/>
       <rect id="bottom-right" width="50" height="50" rx="4" fill="#de8500"/>
       <use stroke="#f90" stroke-width="22.6" xlink:href="#a"/>
       <circle r="26"/>
-      <!--<use stroke="#000" stroke-width="12" xlink:href="#a"/>
+      <use stroke="#000" stroke-width="12" xlink:href="#a"/>
       <g id="a">
         <g id="b">
           <g id="c">
@@ -58,14 +68,14 @@ export default {
         <use transform="rotate(45)" xlink:href="#b"/>
       </g>
       <path id="text-backdrop" d="m44.68 0v40c0 3.333-1.667 5-5 5h-79.38c-3.333 0-5-1.667-5-5v-40"/>
-      <path id="shine" d="m36 4.21c2.9 0 5.3 2.4 5.3 5.3v18c-27.6-3.4-54.9-8-82-7.7v-10.2c0-2.93 2.4-5.3 5.3-5.3z" fill="#3f3f3f"/>-->
+      <path id="shine" d="m36 4.21c2.9 0 5.3 2.4 5.3 5.3v18c-27.6-3.4-54.9-8-82-7.7v-10.2c0-2.93 2.4-5.3 5.3-5.3z" fill="#3f3f3f"/>
       <g id="svg-text" stroke="#fff" stroke-width="6.4">
         <g id="s">
           <path fill="none" d="m-31.74 31.17a8.26 8.26 0 1 0 8.26 -8.26 8.26 8.26 0 1 1 8.26 -8.26M23.23 23h8.288v 8.26a8.26 8.26 0 0 1 -16.52 0v-16.52a8.26 8.26 0 0 1 16.52 0"/>
-          <!--<g stroke-width=".5" stroke="#000">
+          <g stroke-width=".5" stroke="#000">
             <path d="m4.76 3h6.83l-8.24 39.8h-6.85l-8.26-39.8h6.85l4.84 23.3z" fill="#fff"/>
             <path d="m23.23 19.55v6.9m4.838-11.71h6.9m-70.16 16.43h6.9m9.62-16.52h6.9" stroke-linecap="square"/>
-          </g>-->
+          </g>
         </g>
       </g>
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
@@ -157,7 +167,7 @@ export default {
           }
           case 'use':
             // for (var key in element) console.log(key, typeof element[key])
-            console.dir(element.instanceRoot)
+            // console.dir(element.instanceRoot)
         }
       }
       points(this.$refs.doc.$el)
@@ -167,6 +177,39 @@ export default {
           y: (point.y - viewport.y) / viewport.height
         }
       })
+    },
+    startDragAndDrop (event) {
+      const point = {
+        x: event.screenX,
+        y: event.screenY
+      }
+      this.dragAndDrop = {
+        point,
+        target: event.target.__vue__
+      }
+      this.$el.addEventListener('mousemove', this.moveDragAndDrop)
+    },
+    moveDragAndDrop (event) {
+      if (!this.dragAndDrop) return
+      const { a, c, e, b, d, f } = event.target.getScreenCTM()
+      const m1 = new Matrix3()
+      m1.set(
+        a, b, 0,
+        c, d, 0,
+        e, f, 1
+      )
+      const point = new Vector3(
+        event.screenX,
+        event.screenY,
+        1
+      )
+      const p = point.applyMatrix3(m1.getInverse(m1))
+      this.$set(this.dragAndDrop.target.object.attributes, 'x', p.x - 250)
+      this.$set(this.dragAndDrop.target.object.attributes, 'y', p.y - 150)
+    },
+    stopDragAndDrop (event) {
+      this.$el.removeEventListener('mousemove', this.moveDragAndDrop)
+      this.dragAndDrop = null
     }
   }
 }
@@ -181,6 +224,7 @@ export default {
   }
   .points {
     position: fixed;
+    pointer-events: none;
   }
   .point {
     position: absolute;

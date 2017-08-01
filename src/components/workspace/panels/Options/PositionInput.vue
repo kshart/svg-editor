@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'StringInput',
+  name: 'PositionInput',
   props: {
     title: String
   }
