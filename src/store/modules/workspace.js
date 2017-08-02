@@ -38,13 +38,13 @@ const state = {
 }
 
 const getters = {
-  getProjects: (state) => (search) => {
+  getProjects: state => search => {
     if (!search) return state.projects
     let result = []
     let projects = state.projects.slice()
     search.split(' ').forEach(e => {
       projects.forEach((p, i) => {
-        if (p.id == e || p.name.indexOf(e) >= 0 || p.description.indexOf(e) >= 0) {
+        if (p.id === e || p.name.indexOf(e) >= 0 || p.description.indexOf(e) >= 0) {
           const rx = result.find(e => e.id === p.id)
           if (rx) {
             rx.sortWeight++
@@ -55,9 +55,7 @@ const getters = {
         }
       })
     })
-    result.sort((a, b) => {
-      return b.sortWeight - a.sortWeight
-    })
+    result.sort((a, b) => b.sortWeight - a.sortWeight)
     return result
   }
 }

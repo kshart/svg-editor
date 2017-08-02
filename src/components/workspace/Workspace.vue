@@ -1,5 +1,5 @@
 <template>
-  <div class="workspace" @click="listPoints">
+  <div class="workspace" :style="styleCursor" @click="listPoints">
     <div style="width:400px;display:flex;flex-direction:column;">
       <page-manager :pages="pages" selection="*****"/>
       <options v-if="document" :object="document.childs[0]"/>
@@ -40,6 +40,11 @@ export default {
     },
     document () {
       return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
+    },
+    styleCursor () {
+      return {
+        cursor: this.dragAndDrop ? 'pointer' : 'default'
+      }
     },
     ...mapGetters('document', [
       'getPoints'
@@ -179,10 +184,22 @@ export default {
       })
     },
     startDragAndDrop (event) {
-      const point = {
-        x: event.screenX,
-        y: event.screenY
-      }
+      const { a, c, e, b, d, f } = event.target.getCTM()
+      const m1 = new Matrix3()
+      m1.set(
+        a, b, 0,
+        c, d, 0,
+        e, f, 1
+      )
+      const p = new Vector3(
+        event.offsetX,
+        event.offsetY,
+        1
+      )
+      const point = p.applyMatrix3(m1.getInverse(m1))
+      const box = event.target.getBBox()
+      point.x -= box.x + 50
+      point.y -= box.y + 50
       this.dragAndDrop = {
         point,
         target: event.target.__vue__
@@ -191,7 +208,7 @@ export default {
     },
     moveDragAndDrop (event) {
       if (!this.dragAndDrop) return
-      const { a, c, e, b, d, f } = event.target.getScreenCTM()
+      const { a, c, e, b, d, f } = event.target.getCTM()
       const m1 = new Matrix3()
       m1.set(
         a, b, 0,
@@ -199,13 +216,13 @@ export default {
         e, f, 1
       )
       const point = new Vector3(
-        event.screenX,
-        event.screenY,
+        event.offsetX,
+        event.offsetY,
         1
       )
       const p = point.applyMatrix3(m1.getInverse(m1))
-      this.$set(this.dragAndDrop.target.object.attributes, 'x', p.x - 250)
-      this.$set(this.dragAndDrop.target.object.attributes, 'y', p.y - 150)
+      this.$set(this.dragAndDrop.target.object.attributes, 'x', p.x - 50 - this.dragAndDrop.point.x)
+      this.$set(this.dragAndDrop.target.object.attributes, 'y', p.y - 50 - this.dragAndDrop.point.y)
     },
     stopDragAndDrop (event) {
       this.$el.removeEventListener('mousemove', this.moveDragAndDrop)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <component v-for="child in object.childs" key="_key" :is="'svg-' + child.name + '-menu-item'" :object="child" />
+    <component v-for="child in object.childs" :key="child._key" :is="'svg-' + child.name + '-menu-item'" :object="child" />
   </div>
 </template>
 
