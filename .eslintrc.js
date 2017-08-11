@@ -1,5 +1,4 @@
 // http://eslint.org/docs/user-guide/configuring
-
 module.exports = {
   root: true,
   parser: 'babel-eslint',
@@ -14,7 +13,6 @@ module.exports = {
   plugins: [
     'html'
   ],
-  // add your custom rules here
   'rules': {
     // 'eqeqeq': 'off',
     'arrow-parens': 0,
