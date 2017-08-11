@@ -34,23 +34,7 @@ export const ShapeMenuItem = {
 export const ShapeOptionsConfig = {
   tools: [
     {
-      component: 'StringInput',
-      title: 'Name',
-      change: (object, e) => {
-        object.title = e.target.value
-      }
-    }, {
-      component: 'StringInput',
-      title: 'x',
-      change: (object, e) => {
-        object.attributes.x = e.target.value
-      }
-    }, {
-      component: 'StringInput',
-      title: 'y',
-      change: (object, e) => {
-        object.attributes.y = e.target.value
-      }
+      component: 'PositionInput'
     }/* , {
       component: 'NumberInput',
       title: 'Name',

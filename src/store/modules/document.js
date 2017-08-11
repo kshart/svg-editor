@@ -144,8 +144,8 @@ const mutations = {
       childs: []
     })
   },
-  [types.UPDATE_ELEMENT] (state, { object, event, callback }) {
-    callback(object, event)
+  [types.UPDATE_ELEMENT] (state, { object, callback }) {
+    callback(object)
   }
 }
 

@@ -1,14 +1,14 @@
 <template>
   <div>
     Options
-    <component v-for="conf in tools" :key="conf" :is="conf.component" :title="conf.title" @change="change(conf, $event)"/>
+    <component v-for="conf in tools" :is="conf.component" :object="object"/>
   </div>
 </template>
 
 <script>
 import { ShapeOptionsConfig } from '../shapes/Shape'
 
-import StringInput from './Options/StringInput'
+import PositionInput from './Options/PositionInput'
 
 const config = {
   shape: ShapeOptionsConfig
@@ -16,25 +16,13 @@ const config = {
 
 export default {
   name: 'Options',
-  components: { StringInput },
+  components: { PositionInput },
   props: {
-    object: {
-      type: Object,
-      required: true
-    }
+    object: Object
   },
   data () {
     return {
       tools: config.shape.tools
-    }
-  },
-  methods: {
-    change (conf, event) {
-      this.$store.commit('document/UPDATE_ELEMENT', {
-        callback: conf.change,
-        object: this.object,
-        event
-      })
     }
   }
 }

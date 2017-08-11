@@ -7,7 +7,7 @@
       </md-input-container>
     </div>
     <div class="item-list" v-scroll="onScroll">
-      <router-link tag="div" v-for="project in projects" :key="project.id" class="item" :to="'/project/'+project.id">
+      <router-link tag="div" v-for="project in projects" class="item" :to="'/project/'+project.id">
         <p class="name">{{project.name}}</p>
         <p class="description">{{project.description}}</p>
         <p class="last-chage">Последнее изменение: {{project.lastChage}}</p>
@@ -77,7 +77,7 @@ export default {
   .md-input-container label,
   .md-input-container.md-has-value label,
   .md-input-container.md-input-focused label {
-    color: #AAA;
+    color: #aaa;
   }
   .md-input-container label {
     padding-left: 5px;
@@ -98,14 +98,14 @@ export default {
   }
   .md-input-container.md-has-value input,
   .md-input-container.md-has-value textarea {
-    color: #AAA;
+    color: #aaa;
     background-color: #444;
     transition: background-color .2s ease-out, color .2s ease-out;
   }
   .md-input-container.md-input-focused input,
   .md-input-container.md-input-focused textarea {
-    color: #AAA;
-    text-shadow: 0 0 0 #AAA;
+    color: #aaa;
+    text-shadow: 0 0 0 #aaa;
   }
 
   .item-list {
