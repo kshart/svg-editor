@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="controls">
-      <div class="path">{{selection}}</div>
+      <div class="path">{.{selection}.}</div>
       <button @click="createPage">+</button>
     </div>
     <div class="pagelist">

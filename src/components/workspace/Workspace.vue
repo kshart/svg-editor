@@ -5,6 +5,7 @@
       :is="comp.component"
       class="component scrollbar"
     />
+    <resize-observer @notify="resize" />
     <!--<component v-for="comp in layout" :is="comp.component" class="component" :style="comp.position" />
     <div style="width:400px;display:flex;flex-direction:column;">
     </div>
@@ -96,7 +97,7 @@ export default {
       dragAndDrop: null,
       documentRect: null,
       points: [],
-      layout: a.allItems(0, 0, 1500, 700)/* [
+      layout: []/* [
         {
           component: 'page-manager',
           position: {
@@ -166,8 +167,13 @@ export default {
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })
+    this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
+    console.log(this.$el.offsetWidth, this.$el.offsetHeight)
   },
   methods: {
+    resize (e) {
+      this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
+    },
     listPoints () {
       const settings = {
         center: false,

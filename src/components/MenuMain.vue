@@ -53,7 +53,6 @@ export default {
       this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: true })
     },
     select (name) {
-      this.show = false
       this.$store.commit('workspace/CHANGE_SECOND_MENU', { name })
       this.$store.commit('workspace/CHANGE_FIRST_MENU_STATUS', { status: false })
     }
