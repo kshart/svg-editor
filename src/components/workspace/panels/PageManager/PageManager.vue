@@ -16,16 +16,14 @@ import PageItem from './PageItem'
 export default {
   name: 'page-manager',
   components: { PageItem },
-  props: {
-    pages: {
-      types: Array,
-      default: []
-    },
-    selection: String
-  },
   data () {
     return {
       showDescription: true
+    }
+  },
+  computed: {
+    pages () {
+      return this.$store.state.document.pages
     }
   },
   methods: {
@@ -38,34 +36,8 @@ export default {
 
 <style scoped>
   .panel {
-    max-width: 400px;
-    width: 100%;
-    height: 100%;
     background-color: #F00;
   }
-  .page {
-    background-color: #292929;
-  }
-  .pagehead {
-    margin: 0;
-    padding: 10px 15px;
-  }
-  .pagehead-name {
-    margin: 0;
-    font-size: 14pt;
-    color: #BBB;
-  }
-  .pagehead-layers {
-    float: right;
-    font-size: 10pt;
-    color: #999;
-  }
-  .pagehead-description {
-    margin: 0;
-    font-size: 10pt;
-    color: #999;
-  }
-
   .controls {
     display: flex;
     background-color: #222;

@@ -28,7 +28,7 @@ export default {
 <style scoped>
   .head {
     width: 100%;
-    padding: 5px 15px;
+    padding: 2px 15px;
     font-size: 10pt;
     font-weight: 400;
     letter-spacing: .01em;

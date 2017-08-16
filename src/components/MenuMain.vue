@@ -20,8 +20,6 @@
 <script>
 import { mapState } from 'vuex'
 import { version } from '@/../package.json'
-import '@/assets/css/font-awesome.css'
-// material-design-icons'
 
 export default {
   name: 'menu-main',
@@ -101,17 +99,17 @@ export default {
     z-index: 1;
   }
   .list::-webkit-scrollbar {
-    background-color: #292929;
+    background: #292929;
     width: 10px;
   }
   .list::-webkit-scrollbar-button {
     display: none;
   }
   .list::-webkit-scrollbar-thumb {
-    background-color: #555;
+    background: #555;
   }
   .list::-webkit-scrollbar-thumb:hover {
-    background-color: #5A5A5A;
+    background: #5A5A5A;
   }
 
   .item {
@@ -125,7 +123,7 @@ export default {
     font-size: 14pt;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color .2s ease-out;
+    transition: background .2s ease-out;
   }
   .item span.fade-enter-active,
   .item span.fade-leave-active {
@@ -136,12 +134,12 @@ export default {
     opacity: 0
   }
   .item:hover {
-    background-color: #444;
-    transition: background-color .2s ease-out;
+    background: #444;
+    transition: background .2s ease-out;
   }
   .item:active {
-    background-color: #555;
-    transition: background-color .1s ease-out;
+    background: #555;
+    transition: background .1s ease-out;
   }
 
   .image {

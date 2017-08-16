@@ -6,7 +6,7 @@
         <md-input v-model.trim="search"></md-input>
       </md-input-container>
     </div>
-    <div class="item-list" v-scroll="onScroll">
+    <div class="item-list scrollbar" v-scroll="onScroll">
       <router-link tag="div" v-for="project in projects" class="item" :to="'/project/'+project.id">
         <p class="name">{{project.name}}</p>
         <p class="description">{{project.description}}</p>
@@ -115,19 +115,6 @@ export default {
     position: absolute;
     overflow-y: scroll;
     z-index: 1;
-  }
-  .item-list::-webkit-scrollbar {
-    background-color: #292929;
-    width: 10px;
-  }
-  .item-list::-webkit-scrollbar-button {
-    display: none;
-  }
-  .item-list::-webkit-scrollbar-thumb {
-    background-color: #555;
-  }
-  .item-list::-webkit-scrollbar-thumb:hover {
-    background-color: #5A5A5A;
   }
 
   .item {

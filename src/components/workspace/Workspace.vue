@@ -1,8 +1,12 @@
 <template>
   <div class="workspace" :style="styleCursor" @click="listPoints">
+    <component v-for="comp in layout"
+      :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
+      :is="comp.component"
+      class="component scrollbar"
+    />
+    <!--<component v-for="comp in layout" :is="comp.component" class="component" :style="comp.position" />
     <div style="width:400px;display:flex;flex-direction:column;">
-      <page-manager :pages="pages" selection="*****"/>
-      <options v-if="document" :object="document.childs[0]"/>
     </div>
     <document
       v-if="document"
@@ -13,31 +17,102 @@
     />
     <div class="points" :style="documentRect">
       <div v-for="point in points" :style="{left: point.x * 100 + '%', top: point.y * 100 + '%'}" class="point" />
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { Matrix3, Vector3 } from 'three'
-import PageManager from './panels/PageManager'
+import PageManager from './panels/PageManager/PageManager'
 import Document from './panels/Document'
 import Options from './panels/Options'
+import ToolBar from './panels/ToolBar'
+
+class BTree {
+  constructor (a, b, type = 'horisontal', length = 50, lengthFromEnd = false) {
+    this.a = a
+    this.b = b
+    this.type = type
+    this.length = length
+    this.lengthFromEnd = lengthFromEnd
+  }
+  slice (item, newItem, type = 'horisontal', length = 50, lengthFromEnd = false) {
+    if (item === 1) {
+      this.a = new BTree(this.a, newItem, type, length, lengthFromEnd)
+    } else {
+      this.b = new BTree(this.b, newItem, type, length, lengthFromEnd)
+    }
+  }
+  allItems (x = 0, y = 0, w = 700, h = 400, items = []) {
+    const abox = {
+      left: x,
+      top: y,
+      width: this.type === 'horisontal' ? w : (this.lengthFromEnd ? w - this.length : this.length),
+      height: this.type !== 'horisontal' ? h : (this.lengthFromEnd ? h - this.length : this.length)
+    }
+    const bbox = {
+      left: this.type === 'horisontal' ? x : (this.lengthFromEnd ? w - this.length : x + this.length),
+      top: this.type !== 'horisontal' ? y : y + (this.lengthFromEnd ? h - this.length : this.length),
+      width: this.type === 'horisontal' ? w : (this.lengthFromEnd ? this.length : w - this.length),
+      height: this.type !== 'horisontal' ? h : (this.lengthFromEnd ? this.length : h - this.length)
+    }
+
+    if (this.a && this.a.type) {
+      this.a.allItems(abox.left, abox.top, abox.width, abox.height, items)
+    } else if (this.a) {
+      items.push({
+        box: abox,
+        component: this.a
+      })
+    } else {
+    }
+
+    if (this.b && this.b.type) {
+      this.b.allItems(bbox.left, bbox.top, bbox.width, bbox.height, items)
+    } else if (this.b) {
+      items.push({
+        box: bbox,
+        component: this.b
+      })
+    } else {
+    }
+    return items
+  }
+}
+const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
+a.slice(2, 'options', 'vertical', 300)
 
 export default {
   name: 'Workspace',
-  components: { PageManager, Document, Options },
+  components: { PageManager, Document, Options, ToolBar },
   data () {
     return {
       dragAndDrop: null,
       documentRect: null,
-      points: []
+      points: [],
+      layout: a.allItems(0, 0, 1000, 700)/* [
+        {
+          component: 'page-manager',
+          position: {
+            left: 0,
+            width: '400px',
+            top: 0,
+            bottom: 0
+          }
+        }, {
+          component: 'options',
+          position: {
+            left: '400px',
+            width: '400px',
+            top: 0,
+            bottom: 0
+          }
+        }
+      ] */
     }
   },
   computed: {
-    pages () {
-      return this.$store.state.document.pages
-    },
     document () {
       return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
     },
@@ -234,10 +309,13 @@ export default {
 
 <style scoped>
   .workspace {
+    position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: stretch;
+  }
+  .component {
+    position: absolute;
+    overflow: auto;
   }
   .points {
     position: fixed;

@@ -55,16 +55,17 @@ export default {
 
 .head {
   margin: 0;
-  padding: 10px 15px;
+  padding: 5px 15px;
   cursor: pointer;
+  background: #333;
 }
 .head:hover {
-  background-color: #333;
+  background: #333;
 }
 .head-name {
   margin: 0;
   font-size: 14pt;
-  color: #BBB;
+  color: #bbb;
 }
 .head-layers {
   float: right;
@@ -83,7 +84,7 @@ export default {
 }
 
 .body {
-  background-color: #222222;
+  background: #222222;
 }
 
 .fade-enter,

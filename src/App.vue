@@ -10,6 +10,8 @@
 import { mapState } from 'vuex'
 import MenuMain from '@/components/MenuMain'
 import MenuProjects from '@/components/MenuProjects'
+import '@/assets/css/font-awesome.css'
+// material-design-icons
 
 export default {
   name: 'App',
@@ -36,5 +38,19 @@ export default {
   }
   .md-theme-default :not(input):not(textarea)::selection {
     background-color: #BBB;
+  }
+  
+  .scrollbar::-webkit-scrollbar {
+    background-color: #292929;
+    width: 10px;
+  }
+  .scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #555;
+  }
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #5A5A5A;
   }
 </style>
