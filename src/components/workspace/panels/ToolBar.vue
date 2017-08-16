@@ -1,7 +1,7 @@
 <template>
   <div class="component">
-    <div v-for="ico in icons" class="button">
-      <md-icon md-iconset="fa fa-lg" :class="ico" />
+    <div v-for="btn in buttons" class="button">
+      <md-icon md-iconset="fa fa-lg" :class="btn.icon" />
     </div>
   </div>
 </template>

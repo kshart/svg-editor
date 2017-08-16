@@ -40,8 +40,10 @@ class BTree {
   slice (item, newItem, type = 'horisontal', length = 50, lengthFromEnd = false) {
     if (item === 1) {
       this.a = new BTree(this.a, newItem, type, length, lengthFromEnd)
+      return this.a
     } else {
       this.b = new BTree(this.b, newItem, type, length, lengthFromEnd)
+      return this.b
     }
   }
   allItems (x = 0, y = 0, w = 700, h = 400, items = []) {
@@ -52,7 +54,7 @@ class BTree {
       height: this.type !== 'horisontal' ? h : (this.lengthFromEnd ? h - this.length : this.length)
     }
     const bbox = {
-      left: this.type === 'horisontal' ? x : (this.lengthFromEnd ? w - this.length : x + this.length),
+      left: this.type === 'horisontal' ? x : x + (this.lengthFromEnd ? w - this.length : this.length),
       top: this.type !== 'horisontal' ? y : y + (this.lengthFromEnd ? h - this.length : this.length),
       width: this.type === 'horisontal' ? w : (this.lengthFromEnd ? this.length : w - this.length),
       height: this.type !== 'horisontal' ? h : (this.lengthFromEnd ? this.length : h - this.length)
@@ -81,7 +83,10 @@ class BTree {
   }
 }
 const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
-a.slice(2, 'options', 'vertical', 300)
+const a1 = a.slice(2, 'textarea', 'vertical', 300)
+const a2 = a1.slice(2, 'options', 'vertical', 300, true)
+a2.slice(2, 'textarea', 'horisontal', 160)
+console.log(a)
 
 export default {
   name: 'Workspace',
@@ -91,7 +96,7 @@ export default {
       dragAndDrop: null,
       documentRect: null,
       points: [],
-      layout: a.allItems(0, 0, 1000, 700)/* [
+      layout: a.allItems(0, 0, 1500, 700)/* [
         {
           component: 'page-manager',
           position: {
