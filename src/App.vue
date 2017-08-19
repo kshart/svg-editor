@@ -23,11 +23,13 @@ export default {
 </script>
 
 <style>
+  :root {
+    background: #222;
+  }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #222;
     position: fixed;
     top: 0;
     left: 0;
@@ -37,20 +39,23 @@ export default {
     align-items: stretch;
   }
   .md-theme-default :not(input):not(textarea)::selection {
-    background-color: #BBB;
+    background: #bbb;
   }
   
+  .scrollbar {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
   .scrollbar::-webkit-scrollbar {
-    background-color: #292929;
+    background: #292929;
     width: 10px;
   }
   .scrollbar::-webkit-scrollbar-button {
     display: none;
   }
   .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #555;
+    background: #555;
   }
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #5A5A5A;
+    background: #5a5a5a;
   }
 </style>

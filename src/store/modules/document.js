@@ -5,7 +5,8 @@ const types = {
   CREATE: 'CREATE',
   CREATE_PAGE: 'CREATE_PAGE',
   CREATE_LAYER: 'CREATE_LAYER',
-  UPDATE_ELEMENT: 'UPDATE_ELEMENT'
+  UPDATE_ELEMENT: 'UPDATE_ELEMENT',
+  SELECT_ELEMENT: 'SELECT_ELEMENT'
 }
 
 export const hashElements = new Map()
@@ -13,6 +14,8 @@ export const hashElements = new Map()
 const state = {
   _id_generator: 1,
   name: '',
+  selectedItem: null,
+  selectedPage: null,
   pages: [
     /* {
       name: 'Name 1',
@@ -42,6 +45,12 @@ const state = {
       }
     } */
   ]
+}
+
+const actions = {
+  selectItem ({ commit }, object) {
+    commit(types.SELECT_ELEMENT, { object })
+  }
 }
 
 const getters = {
@@ -146,6 +155,9 @@ const mutations = {
   },
   [types.UPDATE_ELEMENT] (state, { object, callback }) {
     callback(object)
+  },
+  [types.SELECT_ELEMENT] (state, { object }) {
+    state.selectedItem = object
   }
 }
 
@@ -153,5 +165,6 @@ export default {
   namespaced: true,
   state,
   mutations,
+  actions,
   getters
 }

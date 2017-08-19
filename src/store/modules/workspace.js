@@ -6,8 +6,8 @@ const types = {
 }
 
 const state = {
-  menuName: 'menu-projects',
-  menuFull: true,
+  menuName: null/* 'menu-projects' */,
+  menuFull: false,
   projectsLoadingProgress: -1,
   projects: [
     {

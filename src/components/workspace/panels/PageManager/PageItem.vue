@@ -11,9 +11,7 @@
       <p class="head-name">{{page.name}}</p>
       <p v-if="showDescription" class="head-description">{{page.description}}</p>
     </div>
-    <transition name="fade" @before-enther="transitionComplete">
-      <component v-if="page.data && isOpenTree" :is="page.data.name + '-menu-item'" class="body" :object="page.data" :level="0"/>
-    </transition>
+    <component v-if="page.data && isOpenTree" :is="page.data.name + '-menu-item'" class="body" :object="page.data" :level="0"/>
   </div>
 </template>
 
@@ -38,11 +36,6 @@ export default {
   methods: {
     createLayer () {
       this.$store.commit('document/CREATE_LAYER', { page: this.page })
-    },
-    transitionComplete (el) {
-      el.style.height = '100px'
-      el.style.overflow = 'hidden'
-      el.style.transition = 'all 1s'
     }
   }
 }
@@ -86,19 +79,4 @@ export default {
 .body {
   background: #222222;
 }
-
-.fade-enter,
-.fade-leave-to {
-  height: 0;
-}
-.fade-enter-to,
-.fade-leave {
-  height: 100px;
-}
-.fade-enter-active,
-.fade-leave-active {
-  overflow: hidden;
-  transition: all 1s;
-}
-
 </style>

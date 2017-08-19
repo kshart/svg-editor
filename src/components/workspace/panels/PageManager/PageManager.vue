@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="controls">
-      <div class="path">{.{selection}.}</div>
+      <div v-if="selectedItem" class="path">{{selectedItem.name}}</div>
       <button @click="createPage">+</button>
     </div>
     <div class="pagelist">
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import PageItem from './PageItem'
 
 export default {
@@ -24,7 +25,8 @@ export default {
   computed: {
     pages () {
       return this.$store.state.document.pages
-    }
+    },
+    ...mapState('document', ['selectedItem'])
   },
   methods: {
     createPage () {
