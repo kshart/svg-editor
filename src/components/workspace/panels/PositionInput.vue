@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import AlignPosition from './AlignPosition'
+import AlignPosition from './components/AlignPosition'
 
 export default {
   name: 'PositionInput',

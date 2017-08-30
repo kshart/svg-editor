@@ -28,17 +28,18 @@ import BTree from '@/btree'
 import { Matrix3, Vector3 } from 'three'
 import PageManager from './panels/PageManager/PageManager'
 import Document from './panels/Document'
-import Options from './panels/Options'
+import FillManager from './panels/FillManager'
 import ToolBar from './panels/ToolBar'
+import PositionInput from './panels/PositionInput'
 
 const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
 const a1 = a.slice(2, 'document', 'vertical', 300)
-const a2 = a1.slice(2, 'options', 'vertical', 300, true)
-a2.slice(2, 'textarea', 'horisontal', 160)
+const a2 = a1.slice(2, 'fill-manager', 'vertical', 300, true)
+a2.slice(2, 'position-input', 'horisontal', 160)
 
 export default {
   name: 'Workspace',
-  components: { PageManager, Document, Options, ToolBar },
+  components: { PageManager, Document, FillManager, ToolBar, PositionInput },
   data () {
     return {
       dragAndDrop: null,
