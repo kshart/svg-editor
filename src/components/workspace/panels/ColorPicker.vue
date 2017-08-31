@@ -2,20 +2,23 @@
   <div class="main">
     <span class="title">{{title}}</span>
     <div class="body">
-      <input-number style="width:200px" :value="123"/>
+      <input-number style="width:100px" v-model="x" />
+      <input-percent style="width:100px" v-model="x" />
     </div>
   </div>
 </template>
 
 <script>
 import InputNumber from './components/InputNumber'
+import InputPercent from './components/InputPercent'
 
 export default {
   name: 'ColorPicker',
-  components: { InputNumber },
+  components: { InputNumber, InputPercent },
   data () {
     return {
-      title: 'Позиция'
+      title: 'Позиция',
+      x: 111
     }
   }
 }

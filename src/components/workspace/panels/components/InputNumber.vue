@@ -15,9 +15,11 @@ export default {
     prop: 'value',
     event: 'change'
   },
+  props: {
+    value: Number
+  },
   data () {
     return {
-      value: 123,
       saveValue: null,
       x: null
     }
@@ -28,7 +30,6 @@ export default {
   },
   methods: {
     mouseDown (e) {
-      console.log('mouseDown')
       this.saveValue = null
       this.x = e.clientX
       this.$nextTick(vue => {
@@ -38,7 +39,6 @@ export default {
     },
     mouseMove (e) {
       const k = e.clientX - this.x
-      // console.log(k)
       if (this.saveValue !== null) {
         this.value = round(this.saveValue + (k * k * Math.sign(k)) / 100) || 0
         this.$nextTick(vue => this.$el.setSelectionRange(0, 0))
@@ -62,10 +62,11 @@ export default {
     width: 100%;
     margin: 0;
     padding: 3px;
-    background: #ddd;
+    background: #666666;
     border: none;
     font-size: 11pt;
     text-align: center;
     outline: none;
+    color: #cccccc;
   }
 </style>
