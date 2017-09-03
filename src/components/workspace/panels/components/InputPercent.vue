@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <input
+      ref="input"
       class="input"
       :value="formatedValue"
       @change="change"
@@ -26,7 +27,7 @@ export default {
   },
   data () {
     return {
-      saveValue: null,
+      rect: null,
       x: null
     }
   },
@@ -62,7 +63,7 @@ export default {
 
     },
     mouseDown (e) {
-      this.saveValue = null
+      this.rect = null
       this.x = e.clientX
       this.$nextTick(vue => {
         window.addEventListener('mousemove', this.mouseMove)
@@ -71,8 +72,8 @@ export default {
     },
     mouseMove (e) {
       const k = e.clientX - this.x
-      if (this.saveValue !== null) {
-        let value = round(this.normal ? this.saveValue + k / 100 : this.saveValue + k, 2) || 0
+      if (this.rect) {
+        let value = round(((e.clientX - this.rect.left) / this.rect.width) * (this.normal ? 1 : 100), 2) || 0
         if (this.normal) {
           if (value > 1) value = 1
         } else {
@@ -80,16 +81,14 @@ export default {
         }
         if (value < 0) value = 0
         this.value = value
-        this.$nextTick(vue => this.$el.setSelectionRange(0, 0))
+        // this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))
       } else if (k < -25 || k > 25) {
-        this.saveValue = this.value
+        this.rect = this.$el.getBoundingClientRect()
         this.x = e.clientX
-        this.$el.setAttribute('readonly', true)
       }
     },
     mouseUp (e) {
-      this.saveValue = null
-      this.$el.removeAttribute('readonly')
+      this.rect = null
       window.removeEventListener('mousemove', this.mouseMove)
     }
   }
@@ -99,6 +98,8 @@ export default {
 <style scoped>
   .main {
     position: relative;
+    width: 100%;
+    padding: 0;
   }
   .input {
     position: relative;
