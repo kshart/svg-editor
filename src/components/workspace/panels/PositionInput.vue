@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import AlignPosition from './components/AlignPosition'
 
 export default {
@@ -25,21 +26,19 @@ export default {
   data () {
     return {
       title: 'Позиция',
-      x: 0,
+      get x () {
+        return 0
+      },
+      set x (x) {
+        this.setAttributes({
+          object: this.object,
+          attributes: { x }
+        })
+      },
       y: 0
     }
   },
-  watch: {
-    x (val) {
-      console.log(this.object)
-      this.$store.commit('document/UPDATE_ELEMENT', {
-        callback: object => {
-          object.attributes.x = val
-        },
-        object: this.object
-      })
-    }
-  }
+  methods: mapMutations('document', ['setAttributes'])
 }
 </script>
 

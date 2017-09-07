@@ -28,29 +28,25 @@ export default {
     })
   },
   methods: {
-    onFill (val) {
+    onFill (fill) {
       console.log('fill')
-      this.$store.commit('document/UPDATE_ELEMENT', {
-        callback: object => {
-          object.attributes.fill = val
-        },
-        object: this.object
+      this.setAttributes({
+        object: this.object,
+        attributes: { fill }
       })
     },
-    onFillRule (val) {
-      this.$store.commit('document/UPDATE_ELEMENT', {
-        callback: object => {
-          object.attributes['fill-rule'] = val
-        },
-        object: this.object
+    onFillRule (fillRule) {
+      console.log('fillRule')
+      this.setAttributes({
+        object: this.object,
+        attributes: { 'fill-rule': fillRule }
       })
     },
-    onFillOpacity (val) {
-      this.$store.commit('document/UPDATE_ELEMENT', {
-        callback: object => {
-          object.attributes['fill-opacity'] = val
-        },
-        object: this.object
+    onFillOpacity (fillOpacity) {
+      console.log('fillOpacity')
+      this.setAttributes({
+        object: this.object,
+        attributes: { 'fill-opacity': fillOpacity }
       })
     }
   }

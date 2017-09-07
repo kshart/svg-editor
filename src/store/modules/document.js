@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import parser from 'xml-parser'
 
 const types = {
@@ -5,8 +6,7 @@ const types = {
   CREATE: 'CREATE',
   CREATE_PAGE: 'CREATE_PAGE',
   CREATE_LAYER: 'CREATE_LAYER',
-  UPDATE_ELEMENT: 'UPDATE_ELEMENT',
-  SELECT_ELEMENT: 'SELECT_ELEMENT'
+  selectItem: 'selectItem'
 }
 
 export const hashElements = new Map()
@@ -14,7 +14,7 @@ export const hashElements = new Map()
 const state = {
   _id_generator: 1,
   name: '',
-  selectedItem: null,
+  selectedItems: [],
   selectedPage: null,
   pages: [
     /* {
@@ -48,9 +48,6 @@ const state = {
 }
 
 const actions = {
-  selectItem ({ commit }, object) {
-    commit(types.SELECT_ELEMENT, { object })
-  }
 }
 
 const getters = {
@@ -153,11 +150,26 @@ const mutations = {
       childs: []
     })
   },
-  [types.UPDATE_ELEMENT] (state, { object, callback }) {
-    callback(object)
+  [types.selectItem] (state, { object, add, remove }) {
+    if (!object && !add && !remove) {
+      return
+    }
+    if (!add && !remove) {
+      state.selectedItems = [object]
+    } else if (add) {
+      state.selectedItems.push(object)
+    } else if (remove) {
+      const index = state.selectedItems.indexOf(object)
+      state.selectedItems.splice(index, 1)
+    }
   },
-  [types.SELECT_ELEMENT] (state, { object }) {
-    state.selectedItem = object
+  [types.setAttributes] (state, { object, attributes }) {
+    if (!object || !object.attributes) {
+      return
+    }
+    attributes.forEach((value, attr) => {
+      Vue.set(object.attributes[attr], value)
+    })
   }
 }
 

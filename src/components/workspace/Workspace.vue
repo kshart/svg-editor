@@ -31,39 +31,23 @@ import Document from './panels/Document'
 import FillManager from './panels/FillManager'
 import ToolBar from './panels/ToolBar'
 import PositionInput from './panels/PositionInput'
+import PaintPropertyManager from './panels/PaintPropertyManager'
 
 const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
 const a1 = a.slice(2, 'document', 'vertical', 300)
 const a2 = a1.slice(2, 'fill-manager', 'vertical', 300, true)
-a2.slice(2, 'position-input', 'horisontal', 160)
+const a3 = a2.slice(2, 'paint-property-manager', 'vertical', 300, true)
+a3.slice(2, 'position-input', 'horisontal', 300)
 
 export default {
   name: 'Workspace',
-  components: { PageManager, Document, FillManager, ToolBar, PositionInput },
+  components: { PageManager, Document, FillManager, ToolBar, PositionInput, PaintPropertyManager },
   data () {
     return {
       dragAndDrop: null,
       documentRect: null,
       points: [],
-      layout: []/* [
-        {
-          component: 'page-manager',
-          position: {
-            left: 0,
-            width: '400px',
-            top: 0,
-            bottom: 0
-          }
-        }, {
-          component: 'options',
-          position: {
-            left: '400px',
-            width: '400px',
-            top: 0,
-            bottom: 0
-          }
-        }
-      ] */
+      layout: []
     }
   },
   computed: {
@@ -72,9 +56,7 @@ export default {
         cursor: this.dragAndDrop ? 'pointer' : 'default'
       }
     },
-    ...mapGetters('document', [
-      'getPoints'
-    ])
+    ...mapGetters('document', ['getPoints'])
   },
   mounted () {
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>

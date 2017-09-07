@@ -13,7 +13,7 @@
 <script>
 import Vue from 'vue'
 import SVG from '@/components/workspace/shapes/svg/SVG'
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
 
 Vue.component('svg-main', SVG)
 
@@ -28,7 +28,9 @@ export default {
     },
     click (event) {
       if (event.target.__vue__) {
-        this.selectItem(event.target.__vue__.object)
+        this.selectItem({
+          object: event.target.__vue__.object
+        })
       }
     },
     getBox () {
@@ -37,9 +39,7 @@ export default {
     getViewport () {
       return this.$refs.svg.$el.viewBox.baseVal
     },
-    ...mapActions('document', [
-      'selectItem'
-    ])
+    ...mapMutations('document', ['selectItem'])
   },
   computed: {
     document () {

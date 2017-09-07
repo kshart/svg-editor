@@ -21,11 +21,16 @@
         <input-stroke-linecap v-model="mode" style="margin-bottom:10px" />
         <input-stroke-linecap v-model="mode" />
       </div>
+        <div class="block">
+          <p class="block-title">Расстояние до «угла»</p>
+          <input-number v-model="x" />
+        </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
 import InputColor from './components/InputColor'
@@ -40,6 +45,15 @@ export default {
       x: 111,
       mode: '',
       color: '#cccccc'
+    }
+  },
+  computed: {
+    ...mapState('document', ['selectedItems']),
+    isEnabled () {
+      return this.selectedItems.length > 0
+    },
+    selectedItem () {
+      return this.selectedItems[0]
     }
   }
 }
