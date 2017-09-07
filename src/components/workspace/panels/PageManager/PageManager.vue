@@ -5,7 +5,7 @@
       <button @click="createPage">+</button>
     </div>
     <div class="pagelist">
-      <page-item v-for="page in pages" :page="page" />
+      <page-item v-for="page in pages" :key="page.name" :page="page" />
     </div>
   </div>
 </template>

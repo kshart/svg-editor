@@ -1,6 +1,6 @@
 <template>
   <g v-if="object.visible">
-    <component v-for="child in object.childs" :is="'svg-' + child.name" :object="child"  />
+    <component v-for="(child, key) in object.childs" :key="key" :is="'svg-' + child.name" :object="child"  />
   </g>
 </template>
 

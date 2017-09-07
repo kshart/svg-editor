@@ -6,7 +6,7 @@
       Группа - {{object.title}}
     </div>
     <div v-if="isOpenTree" class="body">
-      <component v-for="child in object.childs" :is="'svg-' + child.name + '-menu-item'" :object="child" />
+      <component v-for="(child, key) in object.childs" :key="key" :is="'svg-' + child.name + '-menu-item'" :object="child" />
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
       {{object.title || 'Слой'}}
     </div>
     <div v-if="isOpenTree" class="body">
-      <component v-for="child in object.childs" :is="'svg-' + child.name + '-menu-item'" :object="child" :level="level+1"/>
+      <component v-for="(child, key) in object.childs" :key="key" :is="'svg-' + child.name + '-menu-item'" :object="child" :level="level+1"/>
     </div>
   </div>
 </template>

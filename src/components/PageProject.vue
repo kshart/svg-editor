@@ -5,7 +5,7 @@
     <div class="group tasks">
       <p class="title">Задачи:</p>
       <ul class="list">
-        <li v-for="task in tasks">
+        <li v-for="task in tasks" :key="task.id">
           <p>{{task.name}}</p>
           <p>Выполняет: Вася Пупкин</p>
           <p>Приоритет: срочно(до 19.19.19)</p>
@@ -16,7 +16,7 @@
     <div class="group files">
       <p class="title">Последние изменения:</p>
       <ul class="list">
-        <li v-for="task in tasks">
+        <li v-for="task in tasks" :key="task.id">
           <p>{{task.name}}</p>
           <p>13:14 12.12.2014</p>
           <p>Схема asd/asfasf/asf</p>
@@ -40,17 +40,14 @@ export default {
         {
           id: 1,
           name: 'Task1: A asfdasf'
-        },
-        {
-          id: 1,
+        }, {
+          id: 2,
           name: 'Task2: A asfdasf'
-        },
-        {
-          id: 1,
+        }, {
+          id: 3,
           name: 'Task3: A asfdasf'
-        },
-        {
-          id: 1,
+        }, {
+          id: 4,
           name: 'Task4: A asfdasf'
         }
       ]

@@ -2,12 +2,14 @@
   <div>
     <input v-if="isEditTitle" class="head" v-model="object.title" @blur="isEditTitle = !true">
     <div v-else class="head" @dblclick="isEditTitle = true">
+      <span class="rect" :style="{ background: getAttribute(object, 'fill'), border: '1px solid ' + getAttribute(object, 'stroke') }" />
       rect - {{object.title}}
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { ShapeMenuItem } from '@/components/workspace/shapes/Shape'
 
 export default {
@@ -17,7 +19,8 @@ export default {
     return {
       isEditTitle: false
     }
-  }
+  },
+  computed: mapGetters('document', ['getAttribute'])
 }
 </script>
 
@@ -41,5 +44,12 @@ export default {
   .head,
   .head:hover {
     transition: background-color .2s ease-out;
+  }
+
+  .rect {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.5);
   }
 </style>

@@ -11,7 +11,8 @@
     </button>
     <div v-if="mode === 'best-colors'" class="best-colors">
       <div
-        v-for="color in bestColors"
+        v-for="(color, key) in bestColors"
+        :key="key"
         class="color"
         :style="{ background: color, color: getInvertedColor(color) }"
         @click="setColor(color) && (mode = null)"

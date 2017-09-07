@@ -1,6 +1,6 @@
 <template>
   <div class="component">
-    <div v-for="btn in buttons" class="button">
+    <div v-for="(btn, key) in buttons" :key="key" class="button">
       <md-icon md-iconset="fa fa-lg" :class="btn.icon" />
     </div>
   </div>

@@ -15,20 +15,17 @@ const state = {
       name: 'Название проекта 1',
       description: 'aaa ddd',
       lastChage: new Date()
-    },
-    {
+    }, {
       id: 2,
       name: 'Название проекта 2',
       description: 'aadd',
       lastChage: new Date()
-    },
-    {
+    }, {
       id: 3,
       name: 'Название проекта 3',
       description: 'dasd',
       lastChage: new Date()
-    },
-    {
+    }, {
       id: 4,
       name: 'Название проекта 4',
       description: 'aaaa',

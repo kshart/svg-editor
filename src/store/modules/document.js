@@ -51,6 +51,14 @@ const actions = {
 }
 
 const getters = {
+  getAttribute: state => (object, attribute) => {
+    if (!object || !object.attributes) {
+      return
+    }
+    if (object.attributes[attribute]) {
+      return object.attributes[attribute]
+    }
+  }
 }
 
 const mutations = {

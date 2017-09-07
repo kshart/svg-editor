@@ -1,6 +1,7 @@
 <template>
   <div class="workspace" :style="styleCursor" @click="listPoints">
-    <component v-for="comp in layout"
+    <component v-for="(comp, key) in layout"
+      :key="key"
       :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
       :is="comp.component"
       class="component scrollbar"
@@ -80,7 +81,7 @@ export default {
         </g>
         <use transform="rotate(45)" xlink:href="#b"/>
       </g>
-      <path id="text-backdrop" d="m44.68 0v40c0 3.333-1.667 5-5 5h-79.38c-3.333 0-5-1.667-5-5v-40"/>
+      <!--<path id="text-backdrop" d="m44.68 0v40c0 3.333-1.667 5-5 5h-79.38c-3.333 0-5-1.667-5-5v-40"/>
       <path id="shine" d="m36 4.21c2.9 0 5.3 2.4 5.3 5.3v18c-27.6-3.4-54.9-8-82-7.7v-10.2c0-2.93 2.4-5.3 5.3-5.3z" fill="#3f3f3f"/>
       <g id="svg-text" stroke="#fff" stroke-width="6.4">
         <g id="s">
@@ -90,7 +91,7 @@ export default {
             <path d="m23.23 19.55v6.9m4.838-11.71h6.9m-70.16 16.43h6.9m9.62-16.52h6.9" stroke-linecap="square"/>
           </g>
         </g>
-      </g>
+      </g>-->
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })

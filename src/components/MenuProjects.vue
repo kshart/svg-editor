@@ -7,7 +7,7 @@
       </md-input-container>
     </div>
     <div class="item-list scrollbar" v-scroll="onScroll">
-      <router-link tag="div" v-for="project in projects" class="item" :to="'/project/'+project.id">
+      <router-link tag="div" v-for="project in projects" :key="project.id" class="item" :to="'/project/'+project.id">
         <p class="name">{{project.name}}</p>
         <p class="description">{{project.description}}</p>
         <p class="last-chage">Последнее изменение: {{project.lastChage}}</p>
