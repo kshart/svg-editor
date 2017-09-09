@@ -6,7 +6,6 @@ export const Shape = {
   },
   mounted () {
     const update = (newVal, oldVal) => {
-      console.log(newVal ? newVal.x : null, oldVal ? oldVal.x : null)
       for (const e in this.object.attributes) {
         this.$el.setAttribute(e, this.object.attributes[e])
       }

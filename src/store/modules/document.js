@@ -9,7 +9,7 @@ const types = {
   selectItem: 'selectItem'
 }
 
-export const hashElements = new Map()
+export let hashElements = new Map()
 
 const state = {
   _id_generator: 1,
@@ -53,11 +53,18 @@ const actions = {
 const getters = {
   getAttribute: state => (object, attribute) => {
     if (!object || !object.attributes) {
+      console.warn('getAttribute:: !object || !object.attributes')
       return
     }
     if (object.attributes[attribute]) {
       return object.attributes[attribute]
     }
+    console.warn(`getAttribute:: object attribute ${attribute}`, object)
+    const el = hashElements.get(object._key)
+    if (!el) {
+      return
+    }
+    return window.getComputedStyle(el).getPropertyValue(attribute)
   }
 }
 

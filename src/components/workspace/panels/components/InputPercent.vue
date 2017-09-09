@@ -8,7 +8,7 @@
       @mousedown="mouseDown"
     />
     <div class="bg"></div>
-    <div class="progress" :style="{width: value + '%'}"></div>
+    <div class="progress" :style="{width: formatedValue}"></div>
   </div>
 </template>
 
@@ -22,8 +22,7 @@ export default {
     event: 'change'
   },
   props: {
-    value: Number,
-    normal: Boolean
+    value: String
   },
   data () {
     return {
@@ -33,25 +32,17 @@ export default {
   },
   computed: {
     formatedValue () {
-      return this.normal ? this.value : this.value + '%'
+      return (this.value * 100) + '%'
     }
   },
   watch: {
     value (val) {
-      if (this.normal) {
-        if (val > 1) this.value = 1
-      } else {
-        if (val > 100) this.value = 100
-      }
+      if (val > 1) this.value = 1
       if (val < 0) this.value = 0
     }
   },
   mounted () {
-    if (this.normal) {
-      if (this.value > 1) this.value = 1
-    } else {
-      if (this.value > 100) this.value = 100
-    }
+    if (this.value > 1) this.value = 1
     if (this.value < 0) this.value = 0
   },
   beforeDestroy () {
@@ -73,12 +64,8 @@ export default {
     mouseMove (e) {
       const k = e.clientX - this.x
       if (this.rect) {
-        let value = round(((e.clientX - this.rect.left) / this.rect.width) * (this.normal ? 1 : 100), 2) || 0
-        if (this.normal) {
-          if (value > 1) value = 1
-        } else {
-          if (value > 100) value = 100
-        }
+        let value = round(((e.clientX - this.rect.left) / this.rect.width), 2) || 0
+        if (value > 1) value = 1
         if (value < 0) value = 0
         this.value = value
         // this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))

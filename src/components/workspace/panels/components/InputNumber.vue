@@ -1,7 +1,7 @@
 <template>
   <input
     class="input"
-    v-model.number="value"
+    v-model="value"
     @mousedown="mouseDown"
   />
 </template>
@@ -16,7 +16,7 @@ export default {
     event: 'change'
   },
   props: {
-    value: Number
+    value: String
   },
   data () {
     return {

@@ -4,7 +4,7 @@
       class="input"
       :value="inputColor"
       @change="change"
-      :style="{ background: color, color: getInvertedColor(color) }"
+      :style="{ background: value, color: getInvertedColor(value) }"
     />
     <button class="drop-button" @click="mode = mode === 'best-colors' ? null : 'best-colors'">
       >
@@ -17,7 +17,7 @@
         :style="{ background: color, color: getInvertedColor(color) }"
         @click="setColor(color) && (mode = null)"
       >
-        {{color}}
+        {{ color }}
       </div>
     </div>
   </div>
@@ -28,27 +28,36 @@ import Color from 'color'
 export default {
   name: 'InputColor',
   model: {
-    prop: 'color',
+    prop: 'value',
     event: 'change'
   },
   props: {
-    color: String
+    value: String
   },
   data () {
     return {
-      inputColor: this.color,
       mode: null,
       bestColors: ['#fff', '#f00', '#0f0', '#00f']
+    }
+  },
+  computed: {
+    inputColor () {
+      try {
+        const color = Color(this.value).string()
+        return color
+      } catch (e) {
+        console.warn(`Color(${this.value}).string()`)
+      }
     }
   },
   methods: {
     setColor (val) {
       try {
         const color = Color(val).string()
-        this.inputColor = color
         this.$emit('change', color)
         return color
       } catch (e) {
+        console.warn(`Color(${val}).string()`)
         return false
       }
     },
@@ -56,7 +65,8 @@ export default {
       try {
         return Color(color).negate().string()
       } catch (e) {
-        return '#fff'
+        console.warn('Color not inverted ' + color)
+        return '#eee'
       }
     },
     change ({ value }) {
@@ -64,16 +74,6 @@ export default {
         const color = Color(value).string()
         this.$emit('change', color)
       } catch (e) {
-      }
-    }
-  },
-  watch: {
-    color (val, oldVal) {
-      try {
-        const color = Color(val).string()
-        this.inputColor = color
-      } catch (e) {
-        this.color = oldVal
       }
     }
   }
