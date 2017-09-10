@@ -5,16 +5,16 @@
       <div class="group">
         <div class="block">
           <p class="block-title">Толщина</p>
-          <input-number :value="x" />
+          <input-number v-model="strokeWidth" />
         </div>
         <div class="block">
           <p class="block-title">Цвет</p>
-          <input-color :value="color" />
+          <input-color v-model="stroke" />
         </div>
       </div>
       <div class="block">
         <p class="block-title">Прозрачность</p>
-        <input-percent v-model="opacity" />
+        <input-percent v-model="strokeOpacity" />
       </div>
       <div class="block">
         <p class="block-title">Форма</p>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
 import InputColor from './components/InputColor'
@@ -51,26 +51,54 @@ export default {
       return this.selectedItems.length > 0
     },
     selectedItem () {
-      console.log('selectedItem')
       return this.selectedItems[0]
     },
-    x () {
-      if (!this.isEnabled) return ''
-      return this.getAttribute(this.selectedItem, 'stroke-width')
+    strokeWidth: {
+      get () {
+        if (!this.isEnabled) return ''
+        return this.getAttribute(this.selectedItem, 'stroke-width')
+      },
+      set (val) {
+        if (this.isEnabled) {
+          this.setAttributes(this.selectedItem, {'stroke-width': val})
+        }
+      }
     },
-    color () {
-      if (!this.isEnabled) return ''
-      return this.getAttribute(this.selectedItem, 'stroke')
+    stroke: {
+      get () {
+        if (!this.isEnabled) return ''
+        return this.getAttribute(this.selectedItem, 'stroke')
+      },
+      set (val) {
+        if (this.isEnabled) {
+          this.setAttributes(this.selectedItem, {'stroke': val})
+        }
+      }
     },
-    opacity () {
-      if (!this.isEnabled) return ''
-      return this.getAttribute(this.selectedItem, 'stroke-opacity')
+    strokeOpacity: {
+      get () {
+        if (!this.isEnabled) return ''
+        return this.getAttribute(this.selectedItem, 'stroke-opacity')
+      },
+      set (val) {
+        if (this.isEnabled) {
+          this.setAttributes(this.selectedItem, {'stroke-opacity': val})
+        }
+      }
     },
-    strokeMiterlimit () {
-      if (!this.isEnabled) return ''
-      return this.getAttribute(this.selectedItem, 'stroke-miterlimit')
+    strokeMiterlimit: {
+      get () {
+        if (!this.isEnabled) return ''
+        return this.getAttribute(this.selectedItem, 'stroke-miterlimit')
+      },
+      set (val) {
+        if (this.isEnabled) {
+          this.setAttributes(this.selectedItem, {'stroke-miterlimit': val})
+        }
+      }
     }
-  }
+  },
+  methods: mapMutations('document', ['setAttributes'])
 }
 </script>
 

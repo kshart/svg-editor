@@ -25,6 +25,7 @@
 
 <script>
 import Color from 'color'
+
 export default {
   name: 'InputColor',
   model: {
@@ -63,7 +64,7 @@ export default {
     },
     getInvertedColor (color) {
       try {
-        return Color(color).negate().string()
+        return Color.contrast(Color(color)).string()
       } catch (e) {
         console.warn('Color not inverted ' + color)
         return '#eee'

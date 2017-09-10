@@ -6,7 +6,8 @@ const types = {
   CREATE: 'CREATE',
   CREATE_PAGE: 'CREATE_PAGE',
   CREATE_LAYER: 'CREATE_LAYER',
-  selectItem: 'selectItem'
+  selectItem: 'selectItem',
+  setAttributes: 'setAttributes'
 }
 
 export let hashElements = new Map()
