@@ -12,19 +12,6 @@
           <input-color v-model="stroke" />
         </div>
       </div>
-      <div class="block">
-        <p class="block-title">Прозрачность</p>
-        <input-percent v-model="strokeOpacity" />
-      </div>
-      <div class="block">
-        <p class="block-title">Форма</p>
-        <input-stroke-linecap v-model="mode" style="margin-bottom:10px" />
-        <input-stroke-linecap v-model="mode" />
-      </div>
-        <div class="block">
-          <p class="block-title">Расстояние до «угла»</p>
-          <input-number v-model="strokeMiterlimit" />
-        </div>
     </div>
   </div>
 </template>
@@ -37,7 +24,7 @@ import InputColor from './components/InputColor'
 import InputStrokeLinecap from './components/InputStrokeLinecap'
 
 export default {
-  name: 'FillManager',
+  name: 'TransformManager',
   components: { InputNumber, InputPercent, InputColor, InputStrokeLinecap },
   data () {
     return {

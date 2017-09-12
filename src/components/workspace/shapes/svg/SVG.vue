@@ -20,7 +20,14 @@ Vue.component('svg-path', SVGBasic)
 
 export default {
   name: 'SVG',
-  mixins: [ Shape ]
+  mixins: [ Shape ],
+  mounted () {
+    const style = document.createElement('style')
+    style.innerHTML = '.sss {fill: #ff0;}'
+    this.$el.appendChild(style)
+    // this.$el.removeChild(style)
+    console.log(style)
+  }
 }
 </script>
 

@@ -32,17 +32,26 @@ import Document from './panels/Document'
 import FillManager from './panels/FillManager'
 import ToolBar from './panels/ToolBar'
 import PositionInput from './panels/PositionInput'
-import PaintPropertyManager from './panels/PaintPropertyManager'
+import StrokeManager from './panels/StrokeManager'
+import TransformManager from './panels/TransformManager'
 
 const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
-const a1 = a.slice(2, 'document', 'vertical', 300)
-const a2 = a1.slice(2, 'fill-manager', 'vertical', 300, true)
-const a3 = a2.slice(2, 'paint-property-manager', 'vertical', 300, true)
-a3.slice(2, 'position-input', 'horisontal', 300)
+a.slice(2, 'document', 'vertical', 300)
+.slice(2, 'stroke-manager', 'vertical', 350, true)
+.slice(2, 'transform-manager', 'horisontal', 300)
+.slice(2, 'fill-manager', 'horisontal', 300)
 
 export default {
   name: 'Workspace',
-  components: { PageManager, Document, FillManager, ToolBar, PositionInput, PaintPropertyManager },
+  components: {
+    PageManager,
+    Document,
+    FillManager,
+    ToolBar,
+    PositionInput,
+    StrokeManager,
+    TransformManager
+  },
   data () {
     return {
       dragAndDrop: null,
@@ -61,10 +70,15 @@ export default {
   },
   mounted () {
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
-      <!--<rect width="100" height="100" fill="#f90"/>-->
-      
-      <rect id="background" x="-50" y="-50" width="100" height="100" rx="4" fill="#f90"/>
+      <svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <title>SVG Title Demo example</title>
+          <rect x="10" y="10" width="200" height="50" style="fill:none; stroke:blue; stroke-width:1px"/>
+        </g>
+      </svg>
+      <!--<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
+      <!--<rect width="100" height="100" fill="#f90"/>-- >
+      <rect id="background" class="sss" x="-50" y="-50" width="100" height="100" rx="4"/>
       <rect id="top-left" x="-50" y="-50" width="50" height="50" rx="4" fill="#ffb13b"/>
       <rect id="bottom-right" width="50" height="50" rx="4" fill="#de8500"/>
       <use stroke="#f90" stroke-width="22.6" xlink:href="#a"/>
@@ -94,9 +108,9 @@ export default {
       </g>
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
-      </svg>` })
+      </svg>-->` })
     this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
-    console.log(this.$el.offsetWidth, this.$el.offsetHeight)
+    console.log(this.layout)
   },
   methods: {
     resize (e) {

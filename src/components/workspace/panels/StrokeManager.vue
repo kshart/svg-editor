@@ -37,7 +37,7 @@ import InputColor from './components/InputColor'
 import InputStrokeLinecap from './components/InputStrokeLinecap'
 
 export default {
-  name: 'PaintPropertyManager',
+  name: 'StrokeManager',
   components: { InputNumber, InputPercent, InputColor, InputStrokeLinecap },
   data () {
     return {

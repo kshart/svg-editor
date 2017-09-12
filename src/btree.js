@@ -24,7 +24,7 @@ export default class BTree {
     }
     const bbox = {
       left: this.type === 'horisontal' ? x : x + (this.lengthFromEnd ? w - this.length : this.length),
-      top: this.type !== 'horisontal' ? y : y + (this.lengthFromEnd ? h - this.length : this.length),
+      top: this.type !== 'horisontal' ? y : (this.lengthFromEnd ? y + h - this.length : y),
       width: this.type === 'horisontal' ? w : (this.lengthFromEnd ? this.length : w - this.length),
       height: this.type !== 'horisontal' ? h : (this.lengthFromEnd ? this.length : h - this.length)
     }
@@ -36,7 +36,6 @@ export default class BTree {
         box: abox,
         component: this.a
       })
-    } else {
     }
 
     if (this.b && this.b.type) {
@@ -46,7 +45,6 @@ export default class BTree {
         box: bbox,
         component: this.b
       })
-    } else {
     }
     return items
   }

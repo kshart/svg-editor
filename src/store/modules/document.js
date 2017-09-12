@@ -143,14 +143,7 @@ const mutations = {
       }
     }
     registerUse(data.childs[0]) */
-    state.pages.push({
-      _key: Symbol(),
-      id: ++generator,
-      name: 'Name 1',
-      description: '',
-      elements,
-      data: data.childs[0]
-    })
+    state.pages.push(data.childs[0])
     state._id_generator = generator
   },
   [types.CREATE] (state, { name }) {

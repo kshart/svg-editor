@@ -11,7 +11,7 @@
       <p class="head-name">{{page.name}}</p>
       <p v-if="showDescription" class="head-description">{{page.description}}</p>
     </div>
-    <component v-if="page.data && isOpenTree" :is="page.data.name + '-menu-item'" class="body" :object="page.data" :level="0"/>
+    <component v-if="page && isOpenTree" :is="page.name + '-menu-item'" class="body" :object="page" :level="0"/>
   </div>
 </template>
 

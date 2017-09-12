@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     document () {
-      return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0].data : null
+      return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0] : null
     }
   }
 }

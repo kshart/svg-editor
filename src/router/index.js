@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import MenuProjects from '@/components/MenuProjects'
 import PageProject from '@/components/PageProject'
 import Workspace from '@/components/workspace/Workspace'
-import PaintPropertyManager from '@/components/workspace/panels/PaintPropertyManager'
+import StrokeManager from '@/components/workspace/panels/StrokeManager'
 // import TestPage from '@/components/TestPage'
 
 Vue.use(Router)
@@ -26,8 +26,8 @@ export default new Router({
       props: true
     }, {
       path: '/color',
-      name: 'PaintPropertyManager',
-      component: PaintPropertyManager,
+      name: 'StrokeManager',
+      component: StrokeManager,
       props: true
     }
   ],
