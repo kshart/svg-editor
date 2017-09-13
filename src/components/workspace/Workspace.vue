@@ -1,10 +1,11 @@
 <template>
   <div class="workspace" :style="styleCursor" @click="listPoints">
     <component v-for="(comp, key) in layout"
+      :is="setup ? 'div' : comp.component"
       :key="key"
-      :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
-      :is="comp.component"
       class="component scrollbar"
+      :class="{ 'component-setup': setup }"
+      :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
     />
     <resize-observer @notify="resize" />
     <!--<component v-for="comp in layout" :is="comp.component" class="component" :style="comp.position" />
@@ -57,7 +58,8 @@ export default {
       dragAndDrop: null,
       documentRect: null,
       points: [],
-      layout: []
+      layout: [],
+      setup: false
     }
   },
   computed: {
@@ -266,10 +268,18 @@ export default {
     width: 100%;
     height: 100%;
   }
+
   .component {
     position: absolute;
     overflow: auto;
   }
+  .component-setup {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .component-setup:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
   .points {
     position: fixed;
     pointer-events: none;
