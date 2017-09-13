@@ -4,27 +4,18 @@
     <div class="body">
       <div class="group">
         <div class="block">
-          <p class="block-title">Толщина</p>
-          <input-number v-model="strokeWidth" />
-        </div>
-        <div class="block">
           <p class="block-title">Цвет</p>
           <input-color v-model="stroke" />
+        </div>
+        <div class="block">
+          <p class="block-title">fill-rule</p>
+          <input-number v-model="strokeOpacity" />
         </div>
       </div>
       <div class="block">
         <p class="block-title">Прозрачность</p>
         <input-percent v-model="strokeOpacity" />
       </div>
-      <div class="block">
-        <p class="block-title">Форма</p>
-        <input-stroke-linecap v-model="mode" style="margin-bottom:10px" />
-        <input-stroke-linecap v-model="mode" />
-      </div>
-        <div class="block">
-          <p class="block-title">Расстояние до «угла»</p>
-          <input-number v-model="strokeMiterlimit" />
-        </div>
     </div>
   </div>
 </template>
@@ -102,32 +93,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  .main {
-    position: relative;
-    background: #4d4d4d;
-    padding: 4px;
-  }
-  .title {
-    display: block;
-    padding: 3px;
-    padding-bottom: 0;
-    color: #aaa;
-    font-size: 12pt;
-  }
-  .block {
-    width: 100%;
-    padding: 3px;
-    position: relative;
-  }
-  .block-title {
-    padding: 3px 0;
-    margin: 0;
-    color: #b3b3b3;
-  }
-  .group {
-    display: flex;
-  }
-
-  
-</style>
+<style scoped src="./css/manager.css" />

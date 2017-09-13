@@ -4,12 +4,30 @@
     <div class="body">
       <div class="group">
         <div class="block">
-          <p class="block-title">Толщина</p>
+          <p class="block-title">translate</p>
           <input-number v-model="strokeWidth" />
         </div>
         <div class="block">
-          <p class="block-title">Цвет</p>
-          <input-color v-model="stroke" />
+          <p class="block-title">scale</p>
+          <input-number v-model="strokeWidth" />
+        </div>
+        <div class="block">
+          <p class="block-title">rotate</p>
+          <input-number v-model="strokeWidth" />
+        </div>
+      </div>
+      <div class="group">
+        <div class="block">
+          <p class="block-title">skewX</p>
+          <input-number v-model="strokeWidth" />
+        </div>
+        <div class="block">
+          <p class="block-title">skewY</p>
+          <input-number v-model="strokeWidth" />
+        </div>
+        <div class="block">
+          <p class="block-title">matrix?</p>
+          <input-number v-model="strokeWidth" />
         </div>
       </div>
     </div>
@@ -89,32 +107,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  .main {
-    position: relative;
-    background: #4d4d4d;
-    padding: 4px;
-  }
-  .title {
-    display: block;
-    padding: 3px;
-    padding-bottom: 0;
-    color: #aaa;
-    font-size: 12pt;
-  }
-  .block {
-    width: 100%;
-    padding: 3px;
-    position: relative;
-  }
-  .block-title {
-    padding: 3px 0;
-    margin: 0;
-    color: #b3b3b3;
-  }
-  .group {
-    display: flex;
-  }
-
-  
-</style>
+<style scoped src="./css/manager.css" />

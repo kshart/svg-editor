@@ -102,32 +102,4 @@ export default {
 }
 </script>
 
-<style scoped>
-  .main {
-    position: relative;
-    background: #4d4d4d;
-    padding: 4px;
-  }
-  .title {
-    display: block;
-    padding: 3px;
-    padding-bottom: 0;
-    color: #aaa;
-    font-size: 12pt;
-  }
-  .block {
-    width: 100%;
-    padding: 3px;
-    position: relative;
-  }
-  .block-title {
-    padding: 3px 0;
-    margin: 0;
-    color: #b3b3b3;
-  }
-  .group {
-    display: flex;
-  }
-
-  
-</style>
+<style scoped src="./css/manager.css" />
