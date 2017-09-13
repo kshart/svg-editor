@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <span class="title">Stroke</span>
+    <span class="title">Fill</span>
     <div class="body">
       <div class="group">
         <div class="block">
@@ -106,7 +106,6 @@ export default {
   .main {
     position: relative;
     background: #4d4d4d;
-    width: 300px;
     padding: 4px;
   }
   .title {

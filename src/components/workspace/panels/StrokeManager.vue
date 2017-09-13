@@ -106,7 +106,6 @@ export default {
   .main {
     position: relative;
     background: #4d4d4d;
-    width: 300px;
     padding: 4px;
   }
   .title {

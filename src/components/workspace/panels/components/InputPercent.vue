@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="input-percent">
     <input
       ref="input"
       class="input"
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style scoped>
-  .main {
+  .input-percent {
     position: relative;
     width: 100%;
     padding: 0;

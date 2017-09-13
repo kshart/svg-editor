@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="input-color">
     <input
       class="input"
       :value="inputColor"
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-  .main {
+  .input-color {
     position: relative;
     width: 100%;
     padding: 0;

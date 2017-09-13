@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="input-stroke">
     <div class="button" @click="setMode('butt')">
       <div class="rect"></div>
       <div class="point" style="left:0; top:50%"></div>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-  .main {
+  .input-stroke {
     display: flex;
     justify-content: space-around;
     align-items: center;

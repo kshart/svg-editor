@@ -1,6 +1,6 @@
 <template>
   <input
-    class="input"
+    class="input-number"
     v-model="value"
     @mousedown="mouseDown"
   />
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-  .input {
+  .input-number {
     width: 100%;
     margin: 0;
     padding: 3px;
