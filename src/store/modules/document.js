@@ -189,3 +189,29 @@ export default {
   actions,
   getters
 }
+/*
+...mapGetters('document', ['getAttribute']),
+methods: mapMutations('document', ['setAttributes'])
+*/
+export const mapAttributes = (state, attributes) => {
+  let result = {}
+  if (Array.isArray(attributes)) {
+    attributes.forEach(attr => {
+      result[attr] = {
+        get () {
+          return this.$store.getters[state + '/getAttribute'](this.selectedItem, attr)
+        },
+        set (val) {
+          this.$store.commit(state + '/setAttributes', {
+            object: this.selectedItem,
+            attributes: {attr: val}
+          })
+        }
+      }
+    })
+  } else {
+
+  }
+  console.log(result)
+  return result
+}

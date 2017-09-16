@@ -35,12 +35,14 @@ import ToolBar from './panels/ToolBar'
 import PositionInput from './panels/PositionInput'
 import StrokeManager from './panels/StrokeManager'
 import TransformManager from './panels/TransformManager'
+import PrimaryPropertyManager from './panels/PrimaryPropertyManager/PrimaryPropertyManager'
 
 const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
 a.slice(2, 'document', 'vertical', 300)
 .slice(2, 'stroke-manager', 'vertical', 350, true)
 .slice(2, 'transform-manager', 'horisontal', 300)
 .slice(2, 'fill-manager', 'horisontal', 160)
+.slice(2, 'primary-property-manager', 'horisontal', 160)
 
 export default {
   name: 'Workspace',
@@ -51,7 +53,8 @@ export default {
     ToolBar,
     PositionInput,
     StrokeManager,
-    TransformManager
+    TransformManager,
+    PrimaryPropertyManager
   },
   data () {
     return {

@@ -5,29 +5,29 @@
       <div class="group">
         <div class="block">
           <p class="block-title">translate</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="translate" />
         </div>
         <div class="block">
           <p class="block-title">scale</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="scale" />
         </div>
         <div class="block">
           <p class="block-title">rotate</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="rotate" />
         </div>
       </div>
       <div class="group">
         <div class="block">
           <p class="block-title">skewX</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="skewX" />
         </div>
         <div class="block">
           <p class="block-title">skewY</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="skewY" />
         </div>
         <div class="block">
           <p class="block-title">matrix?</p>
-          <input-number v-model="strokeWidth" />
+          <input-number v-model="matrix" />
         </div>
       </div>
     </div>
@@ -36,6 +36,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapAttributes } from '@/store/modules/document'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
 import InputColor from './components/InputColor'
@@ -58,50 +59,14 @@ export default {
     selectedItem () {
       return this.selectedItems[0]
     },
-    strokeWidth: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-width')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-width': val})
-        }
-      }
-    },
-    stroke: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke': val})
-        }
-      }
-    },
-    strokeOpacity: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-opacity')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-opacity': val})
-        }
-      }
-    },
-    strokeMiterlimit: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-miterlimit')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-miterlimit': val})
-        }
-      }
-    }
+    ...mapAttributes('document', [
+      'translate',
+      'scale',
+      'rotate',
+      'skewX',
+      'skewY',
+      'matrix'
+    ])
   },
   methods: mapMutations('document', ['setAttributes'])
 }

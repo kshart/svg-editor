@@ -31,6 +31,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapAttributes } from '@/store/modules/document'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
 import InputColor from './components/InputColor'
@@ -53,50 +54,12 @@ export default {
     selectedItem () {
       return this.selectedItems[0]
     },
-    strokeWidth: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-width')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-width': val})
-        }
-      }
-    },
-    stroke: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke': val})
-        }
-      }
-    },
-    strokeOpacity: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-opacity')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-opacity': val})
-        }
-      }
-    },
-    strokeMiterlimit: {
-      get () {
-        if (!this.isEnabled) return ''
-        return this.getAttribute(this.selectedItem, 'stroke-miterlimit')
-      },
-      set (val) {
-        if (this.isEnabled) {
-          this.setAttributes(this.selectedItem, {'stroke-miterlimit': val})
-        }
-      }
-    }
+    ...mapAttributes('document', [
+      'strokeWidth',
+      'stroke',
+      'strokeOpacity',
+      'strokeMiterlimit'
+    ])
   },
   methods: mapMutations('document', ['setAttributes'])
 }
