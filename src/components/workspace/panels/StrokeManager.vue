@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import { mapAttributes } from '@/store/modules/document'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
@@ -40,28 +40,21 @@ import InputStrokeLinecap from './components/InputStrokeLinecap'
 export default {
   name: 'StrokeManager',
   components: { InputNumber, InputPercent, InputColor, InputStrokeLinecap },
-  data () {
-    return {
-      mode: ''
-    }
-  },
   computed: {
     ...mapState('document', ['selectedItems']),
-    ...mapGetters('document', ['getAttribute']),
+    ...mapAttributes('document', {
+      strokeWidth: 'stroke-width',
+      stroke: 'stroke',
+      strokeOpacity: 'stroke-opacity',
+      strokeMiterlimit: 'stroke-miterlimit'
+    }),
     isEnabled () {
       return this.selectedItems.length > 0
     },
     selectedItem () {
       return this.selectedItems[0]
-    },
-    ...mapAttributes('document', [
-      'strokeWidth',
-      'stroke',
-      'strokeOpacity',
-      'strokeMiterlimit'
-    ])
-  },
-  methods: mapMutations('document', ['setAttributes'])
+    }
+  }
 }
 </script>
 

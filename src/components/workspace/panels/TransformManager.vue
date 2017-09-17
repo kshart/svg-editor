@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import { mapAttributes } from '@/store/modules/document'
 import InputNumber from './components/InputNumber'
 import InputPercent from './components/InputPercent'
@@ -45,20 +45,8 @@ import InputStrokeLinecap from './components/InputStrokeLinecap'
 export default {
   name: 'TransformManager',
   components: { InputNumber, InputPercent, InputColor, InputStrokeLinecap },
-  data () {
-    return {
-      mode: ''
-    }
-  },
   computed: {
     ...mapState('document', ['selectedItems']),
-    ...mapGetters('document', ['getAttribute']),
-    isEnabled () {
-      return this.selectedItems.length > 0
-    },
-    selectedItem () {
-      return this.selectedItems[0]
-    },
     ...mapAttributes('document', [
       'translate',
       'scale',
@@ -66,9 +54,14 @@ export default {
       'skewX',
       'skewY',
       'matrix'
-    ])
-  },
-  methods: mapMutations('document', ['setAttributes'])
+    ]),
+    isEnabled () {
+      return this.selectedItems.length > 0
+    },
+    selectedItem () {
+      return this.selectedItems[0]
+    }
+  }
 }
 </script>
 

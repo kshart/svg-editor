@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import { mapAttributes } from '@/store/modules/document'
 import InputNumber from '../components/InputNumber'
 import InputPercent from '../components/InputPercent'
@@ -22,7 +22,6 @@ export default {
   components: { InputNumber, InputPercent, InputColor, InputStrokeLinecap },
   computed: {
     ...mapState('document', ['selectedItems']),
-    ...mapGetters('document', ['getAttribute']),
     isEnabled () {
       return this.selectedItems.length > 0
     },
@@ -32,8 +31,7 @@ export default {
     ...mapAttributes('document', [
       'points'
     ])
-  },
-  methods: mapMutations('document', ['setAttributes'])
+  }
 }
 </script>
 

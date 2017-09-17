@@ -65,6 +65,7 @@ const getters = {
     if (!el) {
       return
     }
+
     return window.getComputedStyle(el).getPropertyValue(attribute)
   }
 }
@@ -210,8 +211,21 @@ export const mapAttributes = (state, attributes) => {
       }
     })
   } else {
-
+    for (const attr in attributes) {
+      const attrName = attributes[attr]
+      result[attr] = {
+        get () {
+          return this.$store.getters[state + '/getAttribute'](this.selectedItem, attrName)
+        },
+        set (val) {
+          this.$store.commit(state + '/setAttributes', {
+            object: this.selectedItem,
+            attributes: {attrName: val}
+          })
+        }
+      }
+    }
   }
-  console.log(result)
+
   return result
 }
