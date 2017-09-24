@@ -54,6 +54,11 @@ export default {
     selectedItem () {
       return this.selectedItems[0]
     }
+  },
+  data () {
+    return {
+      mode: null
+    }
   }
 }
 </script>

@@ -30,7 +30,7 @@ import BTree from '@/btree'
 import { Matrix3, Vector3 } from 'three'
 import PageManager from './panels/PageManager/PageManager'
 import Document from './panels/Document'
-import FillManager from './panels/FillManager'
+import FillManager from './panels/FillManager/FillManager'
 import ToolBar from './panels/ToolBar'
 import PositionInput from './panels/PositionInput'
 import StrokeManager from './panels/StrokeManager'
@@ -42,7 +42,7 @@ a.slice(2, 'document', 'vertical', 300)
 .slice(2, 'stroke-manager', 'vertical', 350, true)
 .slice(2, 'transform-manager', 'horisontal', 300)
 .slice(2, 'fill-manager', 'horisontal', 160)
-.slice(2, 'primary-property-manager', 'horisontal', 160)
+.slice(2, 'primary-property-manager', 'horisontal', 400)
 
 export default {
   name: 'Workspace',
