@@ -3,8 +3,7 @@
     <input
       ref="input"
       class="input"
-      :value="formatedValue"
-      @change="change"
+      v-model.lezy="formatedValue"
       @mousedown="mouseDown"
     />
     <div class="bg"></div>
@@ -31,28 +30,20 @@ export default {
     }
   },
   computed: {
-    formatedValue () {
-      return (this.value * 100) + '%'
+    formatedValue: {
+      get () {
+        return (this.value * 100) + '%'
+      },
+      set (value) {
+        this.$emit('change', value)
+      }
     }
-  },
-  watch: {
-    value (val) {
-      if (val > 1) this.value = 1
-      if (val < 0) this.value = 0
-    }
-  },
-  mounted () {
-    if (this.value > 1) this.value = 1
-    if (this.value < 0) this.value = 0
   },
   beforeDestroy () {
     window.removeEventListener('mousemove', this.mouseMove)
     window.removeEventListener('mouseup', this.mouseUp)
   },
   methods: {
-    change () {
-
-    },
     mouseDown (e) {
       this.rect = null
       this.x = e.clientX
@@ -67,7 +58,7 @@ export default {
         let value = round(((e.clientX - this.rect.left) / this.rect.width), 2) || 0
         if (value > 1) value = 1
         if (value < 0) value = 0
-        this.value = value
+        this.$emit('change', value)
         // this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))
       } else if (k < -25 || k > 25) {
         this.rect = this.$el.getBoundingClientRect()

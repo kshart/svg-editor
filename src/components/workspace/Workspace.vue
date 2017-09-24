@@ -75,14 +75,13 @@ export default {
   },
   mounted () {
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
-      <svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
+      <!--<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
         <g>
           <title>SVG Title Demo example</title>
           <rect x="10" y="10" width="200" height="50" style="fill:none; stroke:blue; stroke-width:1px"/>
         </g>
-      </svg>
-      <!--<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
-      <!--<rect width="100" height="100" fill="#f90"/>-- >
+      </svg>-->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 100 100">
       <rect id="background" class="sss" x="-50" y="-50" width="100" height="100" rx="4"/>
       <rect id="top-left" x="-50" y="-50" width="50" height="50" rx="4" fill="#ffb13b"/>
       <rect id="bottom-right" width="50" height="50" rx="4" fill="#de8500"/>
@@ -113,7 +112,7 @@ export default {
       </g>
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
-      </svg>-->` })
+      </svg>` })
     this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
     console.log(this.layout)
   },

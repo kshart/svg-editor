@@ -177,9 +177,14 @@ const mutations = {
     if (!object || !object.attributes) {
       return
     }
-    attributes.forEach((value, attr) => {
-      Vue.set(object.attributes[attr], value)
-    })
+    console.log(attributes)
+    for (const attr in attributes) {
+      if (object.attributes[attr]) {
+        object.attributes[attr] = attributes[attr]
+      } else {
+        Vue.set(object.attributes, attr, attributes[attr])
+      }
+    }
   }
 }
 
@@ -211,7 +216,7 @@ export const mapAttributes = (state, attributes) => {
       }
     })
   } else {
-    for (const attr in attributes) {
+    Object.keys(attributes).forEach(attr => {
       const attrName = attributes[attr]
       result[attr] = {
         get () {
@@ -220,11 +225,13 @@ export const mapAttributes = (state, attributes) => {
         set (val) {
           this.$store.commit(state + '/setAttributes', {
             object: this.selectedItem,
-            attributes: {attrName: val}
+            attributes: {
+              [attrName]: val
+            }
           })
         }
       }
-    }
+    })
   }
 
   return result

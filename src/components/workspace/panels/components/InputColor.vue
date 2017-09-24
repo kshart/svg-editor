@@ -2,8 +2,7 @@
   <div class="input-color">
     <input
       class="input"
-      :value="inputColor"
-      @change="change"
+      v-model="inputColor"
       :style="{ background: value, color: getInvertedColor(value) }"
     />
     <button class="drop-button" @click="mode = mode === 'best-colors' ? null : 'best-colors'">
@@ -12,8 +11,8 @@
     <div v-if="mode === 'best-colors'" class="best-colors">
       <div
         v-for="(color, key) in bestColors"
-        :key="key"
         class="color"
+        :key="key"
         :style="{ background: color, color: getInvertedColor(color) }"
         @click="setColor(color) && (mode = null)"
       >
@@ -42,12 +41,18 @@ export default {
     }
   },
   computed: {
-    inputColor () {
-      try {
-        const color = Color(this.value).string()
-        return color
-      } catch (e) {
-        console.warn(`Color(${this.value}).string()`)
+    inputColor: {
+      get () {
+        try {
+          const color = Color(this.value).string()
+          return color
+        } catch (e) {
+          console.warn(`Color(${this.value}).string()`)
+        }
+      },
+      set (value) {
+        const color = Color(value).string()
+        this.$emit('change', color)
       }
     }
   },
@@ -68,13 +73,6 @@ export default {
       } catch (e) {
         console.warn('Color not inverted ' + color)
         return '#eee'
-      }
-    },
-    change ({ value }) {
-      try {
-        const color = Color(value).string()
-        this.$emit('change', color)
-      } catch (e) {
       }
     }
   }

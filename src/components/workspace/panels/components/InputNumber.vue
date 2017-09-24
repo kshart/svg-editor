@@ -1,7 +1,7 @@
 <template>
   <input
     class="input-number"
-    v-model="value"
+    v-model="inputValue"
     @mousedown="mouseDown"
   />
 </template>
@@ -24,6 +24,16 @@ export default {
       x: null
     }
   },
+  computed: {
+    inputValue: {
+      get () {
+        return this.value
+      },
+      set (value) {
+        this.$emit('change', value)
+      }
+    }
+  },
   beforeDestroy () {
     window.removeEventListener('mousemove', this.mouseMove)
     window.removeEventListener('mouseup', this.mouseUp)
@@ -40,7 +50,7 @@ export default {
     mouseMove (e) {
       const k = e.clientX - this.x
       if (this.saveValue !== null) {
-        this.value = round(this.saveValue + (k * k * Math.sign(k)) / 100) || 0
+        this.$emit('change', round(this.saveValue + (k * k * Math.sign(k)) / 100) || 0)
         this.$nextTick(vue => this.$el.setSelectionRange(0, 0))
       } else if (k < -50 || k > 50) {
         this.saveValue = this.value
