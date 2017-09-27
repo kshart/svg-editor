@@ -8,12 +8,21 @@ import VueMaterial from 'vue-material'
 import VueScroll from 'vue-scroll'
 import VueResize from 'vue-resize'
 import 'vue-material/dist/vue-material.css'
-
+import Storage from './Storage'
+import pako from 'pako'
 Vue.config.productionTip = false
 
 Vue.use(VueMaterial)
 Vue.use(VueScroll)
 Vue.use(VueResize)
+Vue.use(Storage, {
+  compress (rawData) {
+    return pako.deflate(rawData, { to: 'string', level: 1 })
+  },
+  decompress (rawData) {
+    return pako.inflate(rawData, { to: 'string', level: 1 })
+  }
+})
 
 Vue.material.registerTheme({
   default: {

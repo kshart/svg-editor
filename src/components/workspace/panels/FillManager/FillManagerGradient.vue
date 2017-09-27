@@ -24,6 +24,12 @@ import InputListGradient from '../components/InputListGradient'
 export default {
   name: 'FillManagerGradient',
   components: { InputRadioButtons, InputSliderGradient, InputListGradient },
+  storage: {
+    key: 'asd',
+    data: [
+      'mode'
+    ]
+  },
   computed: {
     ...mapState('document', ['selectedItems']),
     ...mapAttributes('document', {
