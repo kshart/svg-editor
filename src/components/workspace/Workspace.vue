@@ -7,6 +7,7 @@
       :class="{ 'component-setup': setup }"
       :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
     />
+    <workspace-configurator class="configurator" :tree="tree" />
     <resize-observer @notify="resize" />
     <!--<component v-for="comp in layout" :is="comp.component" class="component" :style="comp.position" />
     <div style="width:400px;display:flex;flex-direction:column;">
@@ -28,6 +29,7 @@
 import { mapGetters } from 'vuex'
 import BTree from '@/btree'
 import { Matrix3, Vector3 } from 'three'
+import WorkspaceConfigurator from './WorkspaceConfigurator'
 import PageManager from './panels/PageManager/PageManager'
 import Document from './panels/Document'
 import FillManager from './panels/FillManager/FillManager'
@@ -37,16 +39,10 @@ import StrokeManager from './panels/StrokeManager'
 import TransformManager from './panels/TransformManager'
 import PrimaryPropertyManager from './panels/PrimaryPropertyManager/PrimaryPropertyManager'
 
-const a = new BTree('tool-bar', 'page-manager', 'vertical', 50)
-a.slice(2, 'document', 'vertical', 300)
-.slice(2, 'stroke-manager', 'vertical', 350, true)
-.slice(2, 'transform-manager', 'horisontal', 300)
-.slice(2, 'fill-manager', 'horisontal', 160)
-.slice(2, 'primary-property-manager', 'horisontal', 400)
-
 export default {
   name: 'Workspace',
   components: {
+    WorkspaceConfigurator,
     PageManager,
     Document,
     FillManager,
@@ -57,12 +53,20 @@ export default {
     PrimaryPropertyManager
   },
   data () {
+    const tree = new BTree('tool-bar', 'page-manager', 'vertical', 50)
+    tree.slice(2, 'document', 'vertical', 300)
+    .slice(2, 'stroke-manager', 'vertical', 350, true)
+    .slice(2, 'transform-manager', 'horisontal', 300)
+    .slice(2, 'fill-manager', 'horisontal', 160)
+    .slice(2, 'primary-property-manager', 'horisontal', 400)
     return {
       dragAndDrop: null,
       documentRect: null,
       points: [],
-      layout: [],
-      setup: false
+      tree,
+      setup: false,
+      width: 0,
+      height: 0
     }
   },
   computed: {
@@ -71,9 +75,14 @@ export default {
         cursor: this.dragAndDrop ? 'pointer' : 'default'
       }
     },
+    layout () {
+      return this.tree.allItems(0, 0, this.width, this.height)
+    },
     ...mapGetters('document', ['getPoints'])
   },
   mounted () {
+    this.width = this.$el.offsetWidth
+    this.height = this.$el.offsetHeight
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
       <!--<svg width="500" height="300" xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -113,12 +122,11 @@ export default {
       <use stroke="#000" stroke-width="7.4" xlink:href="#s"/>
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })
-    this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
-    console.log(this.layout)
   },
   methods: {
     resize (e) {
-      this.layout = a.allItems(0, 0, this.$el.offsetWidth, this.$el.offsetHeight)
+      this.width = this.$el.offsetWidth
+      this.height = this.$el.offsetHeight
     },
     listPoints () {
       const settings = {
@@ -293,5 +301,10 @@ export default {
     margin-top: -5px;
     margin-left: -5px;
     background-color: #F00;
+  }
+  .configurator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
 </style>
