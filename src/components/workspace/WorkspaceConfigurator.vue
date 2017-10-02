@@ -189,6 +189,10 @@ export default {
       this.bbox = null
       window.removeEventListener('mousemove', this.mouseMove)
     }
+  },
+  beforeDestroy () {
+    window.removeEventListener('mousemove', this.mouseMove)
+    window.removeEventListener('mouseup', this.mouseUp)
   }
 }
 </script>
