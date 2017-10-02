@@ -1,13 +1,12 @@
 <template>
   <div class="workspace" :style="styleCursor" @click="listPoints">
     <component v-for="(comp, key) in layout"
-      :is="setup ? 'div' : comp.component"
+      :is="comp.component"
       :key="key"
       class="component scrollbar"
-      :class="{ 'component-setup': setup }"
       :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
     />
-    <workspace-configurator class="configurator" :tree="tree" />
+    <workspace-configurator v-if="setup" class="configurator" :tree="tree" />
     <resize-observer @notify="resize" />
     <!--<component v-for="comp in layout" :is="comp.component" class="component" :style="comp.position" />
     <div style="width:400px;display:flex;flex-direction:column;">
@@ -282,12 +281,6 @@ export default {
   .component {
     position: absolute;
     overflow: auto;
-  }
-  .component-setup {
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .component-setup:hover {
-    background: rgba(255, 255, 255, 0.5);
   }
 
   .points {
