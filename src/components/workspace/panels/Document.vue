@@ -3,6 +3,8 @@
     class="document-box"
     @mouseenter="mouseEnter"
     @mouseleave="mouseLeave"
+    @mousedown="mouseDown"
+    @mouseup="mouseUp"
   >
     <svg-main
       v-if="document"
@@ -11,10 +13,12 @@
       preserveAspectRatio="none"
       :style="svgStyle"
       :object="document"
-      @mousedown.native="mouseDown"
-      @mouseup.native="mouseUp"
       @click.native="click"
     />
+    <div class="grid" :style="gridPosition">
+      <div v-for="item in gridX" class="grid-x" :style="item" />
+      <div v-for="item in gridY" class="grid-y" :style="item" />
+    </div>
   </div>
 </template>
 
@@ -53,6 +57,42 @@ export default {
         width: this.zoom * 100 + 'px',
         height: this.zoom * 100 * this.aspectRatio + 'px',
         background: '#fff'
+      }
+    },
+    gridX () {
+      const result = []
+      for (let x = 0; x < 100; ++x) {
+        result.push({
+          left: x * 20 + 'px',
+          width: '1px',
+          height: '150%',
+          background: '#f00',
+          position: 'absolute'
+        })
+      }
+      return result
+    },
+    gridY () {
+      console.log(123)
+      const result = []
+      for (let y = 0; y < 40; ++y) {
+        result.push({
+          top: y * 20 + 'px',
+          width: '150%',
+          height: '1px',
+          background: '#f00',
+          position: 'absolute'
+        })
+      }
+      return result
+    },
+    gridPosition () {
+      return {
+        left: this.position.x % 20 - 20 + 'px',
+        top: this.position.y % 20 - 20 + 'px',
+        width: '100%',
+        height: '100%',
+        position: 'absolute'
       }
     }
   },
@@ -129,5 +169,19 @@ export default {
 
   .svg {
     position: absolute;
+  }
+  .grid-x {
+    width: 1px;
+    height: 150%;
+    background: #f00;
+    position: absolute;
+    pointer-events: none;
+  }
+  .grid-y {
+    width: 1px;
+    height: 150%;
+    background: #f00;
+    position: absolute;
+    pointer-events: none;
   }
 </style>
