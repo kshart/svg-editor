@@ -1,8 +1,9 @@
 <template>
   <div>
     <button
-      v-for="btn in buttons"
+      v-for="(btn, key) in buttons"
       class="button"
+      :key="key"
       :class="{ active: btn.value === value }"
       @click="$emit('change', btn.value)"
     >

@@ -3,9 +3,20 @@
     class="document-box"
     @mouseenter="mouseEnter"
     @mouseleave="mouseLeave"
-    @mousedown="mouseDown"
+    @mousedown.middle ="mouseDown"
     @mouseup="mouseUp"
   >
+    <svg class="grid" :viewBox="'0 0 ' + rect.width + ' ' + rect.height" :style="gridPosition">
+      <line
+        v-for="(item, key) in grid"
+        class="grid-line"
+        :key="key"
+        :x1="item.x1"
+        :y1="item.y1"
+        :x2="item.x2"
+        :y2="item.y2"
+      />
+    </svg>
     <svg-main
       v-if="document"
       ref="svg"
@@ -15,10 +26,6 @@
       :object="document"
       @click.native="click"
     />
-    <div class="grid" :style="gridPosition">
-      <div v-for="item in gridX" class="grid-x" :style="item" />
-      <div v-for="item in gridY" class="grid-y" :style="item" />
-    </div>
   </div>
 </template>
 
@@ -31,6 +38,9 @@ Vue.component('svg-main', SVG)
 
 export default {
   name: 'Document',
+  props: {
+    rect: Object
+  },
   data () {
     return {
       offset: null,
@@ -47,52 +57,35 @@ export default {
       return this.$store.state.document.pages.length > 0 ? this.$store.state.document.pages[0] : null
     },
     svgStyle () {
-      const bbox = this.getBox()
-      console.log(this.aspectRatio)
       return {
-        left: this.position.x,
-        top: this.position.y,
-        'margin-left': -bbox.width / 2,
-        'margin-top': -bbox.height / 2,
-        width: this.zoom * 100 + 'px',
-        height: this.zoom * 100 * this.aspectRatio + 'px',
+        transform: `translate(${this.position.x - this.rect.width / 2}px, ${this.position.y - this.rect.height / 2}px) scale(${this.zoom})`,
         background: '#fff'
       }
     },
-    gridX () {
+    grid () {
+      console.log('grid')
       const result = []
-      for (let x = 0; x < 100; ++x) {
+      for (let x = 0; x < 120; ++x) {
         result.push({
-          left: x * 20 + 'px',
-          width: '1px',
-          height: '150%',
-          background: '#f00',
-          position: 'absolute'
+          x1: 0,
+          x2: 2000,
+          y1: x * 15,
+          y2: x * 15
         })
       }
-      return result
-    },
-    gridY () {
-      console.log(123)
-      const result = []
-      for (let y = 0; y < 40; ++y) {
+      for (let y = 0; y < 140; ++y) {
         result.push({
-          top: y * 20 + 'px',
-          width: '150%',
-          height: '1px',
-          background: '#f00',
-          position: 'absolute'
+          x1: y * 15,
+          x2: y * 15,
+          y1: 0,
+          y2: 2000
         })
       }
       return result
     },
     gridPosition () {
       return {
-        left: this.position.x % 20 - 20 + 'px',
-        top: this.position.y % 20 - 20 + 'px',
-        width: '100%',
-        height: '100%',
-        position: 'absolute'
+        transform: `translate(${this.position.x % 20 - 9}px, ${this.position.y % 20 - 9}px)`
       }
     }
   },
@@ -124,6 +117,7 @@ export default {
       this.mouseOver = false
     },
     click (e) {
+      console.log(e.target)
       if (e.target.__vue__) {
         this.selectItem({
           object: e.target.__vue__.object
@@ -132,7 +126,7 @@ export default {
     },
     wheel (e) {
       if (this.mouseOver) {
-        this.zoom += e.deltaY / 100
+        this.zoom += e.deltaY / 1000
         if (this.zoom < 0.1) {
           this.zoom = 0.1
         } else if (this.zoom > 100) {
@@ -170,18 +164,13 @@ export default {
   .svg {
     position: absolute;
   }
-  .grid-x {
-    width: 1px;
-    height: 150%;
-    background: #f00;
+  .grid {
+    width: 100%;
+    height: 100%;
     position: absolute;
-    pointer-events: none;
   }
-  .grid-y {
-    width: 1px;
-    height: 150%;
-    background: #f00;
-    position: absolute;
-    pointer-events: none;
+  .grid-line {
+    stroke-width: 1;
+    stroke: #555;
   }
 </style>

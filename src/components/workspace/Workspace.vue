@@ -1,10 +1,17 @@
 <template>
   <div class="workspace" :style="styleCursor" @click="listPoints">
-    <component v-for="(comp, key) in layout"
+    <component
+      v-for="(comp, key) in layout"
+      class="component scrollbar"
       :is="comp.component"
       :key="key"
-      class="component scrollbar"
-      :style="{ left: comp.box.left + 'px', top: comp.box.top + 'px', width: comp.box.width + 'px', height: comp.box.height + 'px' }"
+      :rect="comp.box"
+      :style="{
+        left: comp.box.left + 'px',
+        top: comp.box.top + 'px',
+        width: comp.box.width + 'px',
+        height: comp.box.height + 'px'
+      }"
     />
     <workspace-configurator v-if="setup" class="configurator" :tree="tree" />
     <resize-observer @notify="resize" />

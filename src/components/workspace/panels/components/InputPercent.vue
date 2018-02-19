@@ -3,7 +3,7 @@
     <input
       ref="input"
       class="input"
-      v-model.lezy="formatedValue"
+      v-model="formatedValue"
       @mousedown="mouseDown"
     />
     <div class="bg"></div>

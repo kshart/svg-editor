@@ -7,8 +7,9 @@
     ></div>
     <div class="markers-color">
       <span
-        v-for="item in items"
+        v-for="(item, key) in items"
         class="marker"
+        :key="key"
         :style="{
           'border-bottom': `10px solid ${item.color}`,
           left: (item.percent * 100) + '%'
