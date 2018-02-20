@@ -1,5 +1,4 @@
 import './path-data-polyfill'
-import 'normalize.css'
 import Vue from 'vue'
 import App from './App'
 import store from './store/index'
@@ -8,7 +7,7 @@ import VueMaterial from 'vue-material'
 import VueScroll from 'vue-scroll'
 import VueResize from 'vue-resize'
 import 'vue-material/dist/vue-material.css'
-import Storage from './Storage'
+import Storage from './storage'
 import pako from 'pako'
 Vue.config.productionTip = false
 
@@ -36,8 +35,7 @@ Vue.material.registerTheme({
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   store,
   render: h => h(App)
-})
+}).$mount('#app')

@@ -28,7 +28,6 @@ export default {
           })
         } else {
           console.error('storage.props must be an array')
-          return
         }
       },
       beforeDestroy () {

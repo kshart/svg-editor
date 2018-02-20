@@ -95,7 +95,7 @@ const mutations = {
         case 'svg':
           obj = {
             attributes,
-            _key: Symbol(),
+            // _key: Symbol(),
             name,
             title: '',
             childs: []
@@ -105,7 +105,7 @@ const mutations = {
         case 'g':
           obj = {
             attributes,
-            _key: Symbol(),
+            // _key: Symbol(),
             name: 'g',
             visible: true,
             childs: [],
@@ -119,7 +119,7 @@ const mutations = {
         case 'path':
           obj = {
             attributes,
-            _key: Symbol(),
+            // _key: Symbol(),
             name,
             title: ''
           }
@@ -153,7 +153,7 @@ const mutations = {
   },
   [types.CREATE_PAGE] (state, { name, description }) {
     state.pages.push({
-      _key: Symbol(),
+      // _key: Symbol(),
       id: ++state._id_generator,
       name: name || 'Страница',
       description,

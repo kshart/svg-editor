@@ -2,8 +2,9 @@
   <div class="input-list">
     <div class="markers">
       <div
-        v-for="item in items"
+        v-for="(item, key) in items"
         class="marker"
+        :key="key"
         @click="$emit('select', item)"
       >
         <span class="marker-color" :style="{

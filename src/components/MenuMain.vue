@@ -7,7 +7,7 @@
         </h1>
         <h1 v-else @click="open" class="title litle">S</h1>
       </div>
-      <div v-for="item in items" :key="item.name" class="item" @click="select(item.name)">
+      <div v-for="(item, key) in items" :key="key" class="item" @click="select(item.name)">
         <transition name="fade">
           <span v-if="show">{{item.title}}</span>
         </transition>

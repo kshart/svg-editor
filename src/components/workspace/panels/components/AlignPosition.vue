@@ -3,11 +3,11 @@
     <div class="cell cell-11" :class="{active: mode === 'lt'}" @click="mode = 'lt'"></div>
     <div class="cell cell-12" :class="{active: mode === 'ct'}" @click="mode = 'ct'"></div>
     <div class="cell cell-13" :class="{active: mode === 'rt'}" @click="mode = 'rt'"></div>
-    
+
     <div class="cell cell-21" :class="{active: mode === 'lc'}" @click="mode = 'lc'"></div>
     <div class="cell cell-22" :class="{active: mode === 'c'}"  @click="mode = 'c'" ></div>
     <div class="cell cell-23" :class="{active: mode === 'rc'}" @click="mode = 'rc'"></div>
-    
+
     <div class="cell cell-31" :class="{active: mode === 'lb'}" @click="mode = 'lb'"></div>
     <div class="cell cell-32" :class="{active: mode === 'cb'}" @click="mode = 'cb'"></div>
     <div class="cell cell-33" :class="{active: mode === 'rb'}" @click="mode = 'rb'"></div>
@@ -71,7 +71,7 @@ export default {
     top: 15px;
     left: 30px;
   }
-  
+
   .cell-31 {
     top: 30px;
   }

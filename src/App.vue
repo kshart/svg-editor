@@ -41,7 +41,7 @@ export default {
   .md-theme-default :not(input):not(textarea)::selection {
     background: #bbb;
   }
-  
+
   .scrollbar {
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }

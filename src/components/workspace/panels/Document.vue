@@ -6,7 +6,7 @@
     @mousedown.middle ="mouseDown"
     @mouseup="mouseUp"
   >
-    <svg class="grid" :viewBox="'0 0 ' + rect.width + ' ' + rect.height" :style="gridPosition">
+    <svg class="grid" :viewBox="`0 0 ${rect.width} ${rect.height}`" :style="gridPosition">
       <line
         v-for="(item, key) in grid"
         class="grid-line"
@@ -148,6 +148,7 @@ export default {
     window.removeEventListener('wheel', this.wheel)
   },
   mounted () {
+    console.log(this.rect)
     window.addEventListener('wheel', this.wheel)
     const bbox = this.getBox()
     this.aspectRatio = bbox.width / bbox.height

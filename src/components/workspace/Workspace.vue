@@ -61,10 +61,11 @@ export default {
   data () {
     const tree = new BTree('tool-bar', 'page-manager', 'vertical', 50)
     tree.slice(2, 'document', 'vertical', 300)
-    .slice(2, 'stroke-manager', 'vertical', 350, true)
-    .slice(2, 'transform-manager', 'horisontal', 300)
-    .slice(2, 'fill-manager', 'horisontal', 160)
-    .slice(2, 'primary-property-manager', 'horisontal', 400)
+      .slice(2, 'stroke-manager', 'vertical', 350, true)
+      .slice(2, 'transform-manager', 'horisontal', 300)
+      .slice(2, 'fill-manager', 'horisontal', 160)
+      .slice(2, 'primary-property-manager', 'horisontal', 400)
+
     return {
       dragAndDrop: null,
       documentRect: null,
@@ -82,6 +83,9 @@ export default {
       }
     },
     layout () {
+      if (this.width <= 0 || this.height <= 0) {
+        return []
+      }
       return this.tree.allItems(0, 0, this.width, this.height)
     },
     ...mapGetters('document', ['getPoints'])
