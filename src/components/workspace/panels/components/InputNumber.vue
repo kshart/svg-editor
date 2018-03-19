@@ -1,9 +1,13 @@
 <template>
-  <input
-    class="input-number"
-    v-model="inputValue"
-    @mousedown="mouseDown"
-  />
+  <div class="number">
+    <input
+      ref="input"
+      v-model="inputValue"
+      class="input-number"
+      :style="inputStyle"
+      @mousedown="mouseDown"
+    />
+  </div>
 </template>
 
 <script>
@@ -15,9 +19,7 @@ export default {
     prop: 'value',
     event: 'change'
   },
-  props: {
-    value: String
-  },
+  props: ['value'],
   data () {
     return {
       saveValue: null,
@@ -31,6 +33,11 @@ export default {
       },
       set (value) {
         this.$emit('change', value)
+      }
+    },
+    inputStyle () {
+      return {
+        cursor: this.saveValue === null ? 'text' : 'ew-resize'
       }
     }
   },
@@ -51,16 +58,16 @@ export default {
       const k = e.clientX - this.x
       if (this.saveValue !== null) {
         this.$emit('change', round(this.saveValue + (k * k * Math.sign(k)) / 100) || 0)
-        this.$nextTick(vue => this.$el.setSelectionRange(0, 0))
+        this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))
       } else if (k < -50 || k > 50) {
         this.saveValue = this.value
         this.x = e.clientX
-        this.$el.setAttribute('readonly', true)
+        this.$refs.input.setAttribute('readonly', true)
       }
     },
     mouseUp (e) {
       this.saveValue = null
-      this.$el.removeAttribute('readonly')
+      this.$refs.input.removeAttribute('readonly')
       window.removeEventListener('mousemove', this.mouseMove)
     }
   }
@@ -68,15 +75,20 @@ export default {
 </script>
 
 <style scoped>
-  .input-number {
+  .number {
+    position: relative;
     width: 100%;
     margin: 0;
     padding: 3px;
     background: #666666;
-    border: none;
-    font-size: 11pt;
+  }
+  .input-number {
+    width: 100%;
     text-align: center;
-    outline: none;
+    background: none;
+    border: none;
     color: #cccccc;
+    outline: none;
+    font-size: 11pt;
   }
 </style>

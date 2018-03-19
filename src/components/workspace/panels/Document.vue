@@ -6,7 +6,7 @@
     @mousedown.middle ="mouseDown"
     @mouseup="mouseUp"
   >
-    <svg class="grid" :viewBox="`0 0 ${rect.width} ${rect.height}`" :style="gridPosition">
+    <svg v-if="showGrid" class="grid" :viewBox="`0 0 ${rect.width} ${rect.height}`" :style="gridPosition">
       <line
         v-for="(item, key) in grid"
         class="grid-line"
@@ -43,6 +43,7 @@ export default {
   },
   data () {
     return {
+      showGrid: false,
       offset: null,
       zoom: 1,
       aspectRatio: 1,
@@ -63,7 +64,6 @@ export default {
       }
     },
     grid () {
-      console.log('grid')
       const result = []
       for (let x = 0; x < 120; ++x) {
         result.push({

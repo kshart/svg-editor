@@ -3,7 +3,7 @@
     <input
       class="input"
       v-model="inputColor"
-      :style="{ background: value, color: getInvertedColor(value) }"
+      :style="{ background: backgroundColor, color: textColor }"
     />
     <button class="drop-button" @click="mode = mode === 'best-colors' ? null : 'best-colors'">
       >
@@ -43,6 +43,9 @@ export default {
   computed: {
     inputColor: {
       get () {
+        if (this.value === 'none') {
+          return this.value
+        }
         try {
           const color = Color(this.value).string()
           return color
@@ -52,8 +55,21 @@ export default {
       },
       set (value) {
         const color = Color(value).string()
+        console.log(color)
         this.$emit('change', color)
       }
+    },
+    backgroundColor () {
+      if (!this.value || this.value === 'none') {
+        return '#666'
+      }
+      return this.value
+    },
+    textColor () {
+      if (!this.value || this.value === 'none') {
+        return '#ccc'
+      }
+      return this.getInvertedColor(this.value)
     }
   },
   methods: {
