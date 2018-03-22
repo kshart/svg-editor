@@ -177,7 +177,7 @@ const mutations = {
     if (!object || !object.attributes) {
       return
     }
-    console.log(attributes)
+    // console.log(attributes)
     for (const attr in attributes) {
       if (object.attributes[attr]) {
         object.attributes[attr] = attributes[attr]

@@ -58,7 +58,7 @@ export default {
       const k = e.clientX - this.x
       if (this.saveValue !== null) {
         this.$emit('change', round(this.saveValue + (k * k * Math.sign(k)) / 100) || 0)
-        this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))
+        this.$nextTick(vue => window.getSelection().removeAllRanges())
       } else if (k < -50 || k > 50) {
         this.saveValue = this.value
         this.x = e.clientX

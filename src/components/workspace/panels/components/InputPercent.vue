@@ -3,7 +3,8 @@
     <input
       ref="input"
       class="input"
-      v-model="formatedValue"
+      v-model.lazy="formatedValue"
+      :style="style"
       @mousedown="mouseDown"
     />
     <div class="bg"></div>
@@ -21,7 +22,11 @@ export default {
     event: 'change'
   },
   props: {
-    value: String
+    value: Number,
+    round: {
+      type: Number,
+      default: 1
+    }
   },
   data () {
     return {
@@ -30,9 +35,14 @@ export default {
     }
   },
   computed: {
+    style () {
+      return {
+        cursor: this.rect ? 'pointer' : 'default'
+      }
+    },
     formatedValue: {
       get () {
-        return (this.value * 100) + '%'
+        return round(this.value * 100, this.round) + '%'
       },
       set (value) {
         this.$emit('change', value)
@@ -59,7 +69,7 @@ export default {
         if (value > 1) value = 1
         if (value < 0) value = 0
         this.$emit('change', value)
-        // this.$nextTick(vue => this.$refs.input.setSelectionRange(0, 0))
+        this.$nextTick(vue => window.getSelection().removeAllRanges())
       } else if (k < -25 || k > 25) {
         this.rect = this.$el.getBoundingClientRect()
         this.x = e.clientX
