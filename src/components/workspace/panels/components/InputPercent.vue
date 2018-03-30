@@ -3,12 +3,13 @@
     <input
       ref="input"
       class="input"
-      v-model.lazy="formatedValue"
+      :value="inputValue"
       :style="style"
+      @change="change"
       @mousedown="mouseDown"
     />
     <div class="bg"></div>
-    <div class="progress" :style="{width: formatedValue}"></div>
+    <div class="progress" :style="progressStyle"></div>
   </div>
 </template>
 
@@ -18,11 +19,11 @@ import round from 'lodash.round'
 export default {
   name: 'InputPercent',
   model: {
-    prop: 'value',
+    prop: 'outerValue',
     event: 'change'
   },
   props: {
-    value: Number,
+    outerValue: Number,
     round: {
       type: Number,
       default: 1
@@ -30,6 +31,7 @@ export default {
   },
   data () {
     return {
+      value: null,
       rect: null,
       x: null
     }
@@ -40,8 +42,19 @@ export default {
         cursor: this.rect ? 'pointer' : 'default'
       }
     },
-    formatedValue: {
+    progressStyle () {
+      if (Number.isNaN(this.value)) {
+        return {}
+      }
+      return {
+        width: (this.value * 100) + '%'
+      }
+    },
+    inputValue: {
       get () {
+        if (Number.isNaN(this.value)) {
+          return '(не задано)'
+        }
         return round(this.value * 100, this.round) + '%'
       },
       set (value) {
@@ -49,11 +62,25 @@ export default {
       }
     }
   },
+  mounted () {
+    this.updateExternalValue()
+  },
   beforeDestroy () {
     window.removeEventListener('mousemove', this.mouseMove)
     window.removeEventListener('mouseup', this.mouseUp)
   },
   methods: {
+    change () {
+      console.log(this.$refs.input.value)
+    },
+    updateExternalValue () {
+      let outerValue = this.outerValue
+      if (!(outerValue instanceof Number)) {
+        outerValue = Number(outerValue)
+      }
+      // console.log(outerValue)
+      this.value = outerValue
+    },
     mouseDown (e) {
       this.rect = null
       this.x = e.clientX
@@ -78,6 +105,11 @@ export default {
     mouseUp (e) {
       this.rect = null
       window.removeEventListener('mousemove', this.mouseMove)
+    }
+  },
+  watch: {
+    outerValue (value) {
+      this.updateExternalValue()
     }
   }
 }
