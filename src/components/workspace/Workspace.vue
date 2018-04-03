@@ -1,5 +1,9 @@
 <template>
-  <div class="workspace" :style="styleCursor" @click="listPoints">
+  <div
+    class="workspace"
+    :style="styleCursor"
+    @click="listPoints"
+  >
     <component
       v-for="(comp, key) in layout"
       class="component scrollbar"
@@ -91,6 +95,7 @@ export default {
     ...mapGetters('document', ['getPoints'])
   },
   mounted () {
+    document.addEventListener('keydown', this.keyDown)
     this.width = this.$el.offsetWidth
     this.height = this.$el.offsetHeight
     this.$store.commit('document/LOAD', { document: `<?xml version="1.0"?>
@@ -133,7 +138,15 @@ export default {
       <use stroke="#000" stroke-width="7.4" xlink:href="#svg-text"/>
       </svg>` })
   },
+  unmounted () {
+    document.removeEventListener('keydown', this.keyDown)
+  },
   methods: {
+    keyDown (e) {
+      if (e.key === 'Tab') {
+        this.setup = !this.setup
+      }
+    },
     resize (e) {
       this.width = this.$el.offsetWidth
       this.height = this.$el.offsetHeight
