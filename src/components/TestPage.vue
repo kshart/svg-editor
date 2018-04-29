@@ -100,6 +100,6 @@ export default {
     left: 0;
     width: 500px;
     height: 500px;
-    background-color: #FFF;
+    background: #FFF;
   }
 </style>

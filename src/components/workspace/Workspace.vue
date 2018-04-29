@@ -317,7 +317,7 @@ export default {
     height: 10px;
     margin-top: -5px;
     margin-left: -5px;
-    background-color: #F00;
+    background: #F00;
   }
   .configurator {
     position: absolute;

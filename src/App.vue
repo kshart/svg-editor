@@ -1,24 +1,18 @@
 <template>
   <div id="app">
     <menu-main />
-    <component v-if="menuName" :is="menuName" />
     <router-view />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import MenuMain from '@/components/MenuMain'
-import MenuProjects from '@/components/MenuProjects'
 import '@/assets/css/font-awesome.css'
 // material-design-icons
 
 export default {
   name: 'App',
-  components: { MenuMain, MenuProjects },
-  computed: mapState({
-    menuName: state => state.workspace.menuName
-  })
+  components: { MenuMain }
 }
 </script>
 

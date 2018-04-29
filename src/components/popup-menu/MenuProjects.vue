@@ -50,7 +50,7 @@ export default {
     position: relative;
     width: 400px;
     color: #FFF;
-    background-color: #292929;
+    background: #292929;
     flex-shrink: 0;
   }
 
@@ -83,24 +83,24 @@ export default {
     padding-left: 5px;
   }
   .md-input-container.md-input-focused:after {
-    background-color: #999;
+    background: #999;
   }
   .md-input-container input,
   .md-input-container textarea {
     color: #999;
-    background-color: #444;
+    background: #444;
     border: none;
     width: 100%;
     margin:0;
     padding: 5px;
     box-sizing: border-box;
-    transition: background-color .2s ease-out, color .2s ease-out;
+    transition: background .2s ease-out, color .2s ease-out;
   }
   .md-input-container.md-has-value input,
   .md-input-container.md-has-value textarea {
     color: #aaa;
-    background-color: #444;
-    transition: background-color .2s ease-out, color .2s ease-out;
+    background: #444;
+    transition: background .2s ease-out, color .2s ease-out;
   }
   .md-input-container.md-input-focused input,
   .md-input-container.md-input-focused textarea {
@@ -120,15 +120,15 @@ export default {
   .item {
     padding: 15px;
     cursor: pointer;
-    transition: background-color .2s ease-out;
+    transition: background .2s ease-out;
   }
   .item:hover {
-    background-color: #444;
-    transition: background-color .2s ease-out;
+    background: #444;
+    transition: background .2s ease-out;
   }
   .item:active {
-    background-color: #555;
-    transition: background-color .1s ease-out;
+    background: #555;
+    transition: background .1s ease-out;
   }
 
   .item .name {

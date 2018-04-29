@@ -58,7 +58,7 @@ export default {
 }
 .context-menu ul {
   padding: 0;
-  background-color: #EEE;
+  background: #EEE;
   border-radius: 0;
   list-style-type: none;
 }
@@ -67,6 +67,6 @@ export default {
   cursor: pointer;
 }
 .context-menu ul li:hover {
-  background-color: #DDD;
+  background: #DDD;
 }
 </style>

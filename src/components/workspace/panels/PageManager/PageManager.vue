@@ -38,11 +38,11 @@ export default {
 
 <style scoped>
   .panel {
-    background-color: #F00;
+    background: #F00;
   }
   .controls {
     display: flex;
-    background-color: #222;
+    background: #222;
     color: #999;
   }
   .controls .path {

@@ -14,21 +14,24 @@
         <md-icon md-iconset="fa fa-lg" class="image" :class="item.icon" />
       </div>
     </div>
+    <component v-if="menuName" class="popup-menu" :is="menuName" />
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import { version } from '@/../package.json'
+import ExplorerPopupMenu from './popup-menu/ExplorerPopupMenu'
 
 export default {
   name: 'menu-main',
+  components: { ExplorerPopupMenu },
   data () {
     return {
       version,
       items: [
         {
-          name: 'menu-projects',
+          name: 'ExplorerPopupMenu',
           icon: 'fa-book',
           title: 'Проекты'
         }, {
@@ -44,7 +47,8 @@ export default {
     }
   },
   computed: mapState({
-    show: state => state.workspace.menuFull
+    show: state => state.workspace.menuFull,
+    menuName: state => state.workspace.menuName
   }),
   methods: {
     open () {
@@ -62,7 +66,7 @@ export default {
   .menu {
     position: relative;
     color: #FFF;
-    background-color: #333;
+    background: #333;
     transition: width .3s ease-out;
     flex-shrink: 0;
   }
@@ -146,5 +150,11 @@ export default {
     width: 40px;*/
     top: 15px;
     right: 13px;
+  }
+  .popup-menu {
+    position: absolute;
+    left: 100%;
+    z-index: 10;
+    background: #333;
   }
 </style>

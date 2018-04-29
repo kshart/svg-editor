@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MenuProjects from '@/components/MenuProjects'
 import PageProject from '@/components/PageProject'
 import Workspace from '@/components/workspace/Workspace'
 import StrokeManager from '@/components/workspace/panels/StrokeManager'
@@ -11,10 +10,6 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/project',
-      name: 'MenuProjects',
-      component: MenuProjects
-    }, {
       path: '/project/:id',
       name: 'PageProject',
       component: PageProject,

@@ -73,7 +73,7 @@ export default {
 
 .head,
 .head:hover {
-  transition: background-color .2s ease-out;
+  transition: background .2s ease-out;
 }
 
 .body {

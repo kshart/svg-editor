@@ -41,16 +41,16 @@ export default {
     line-height: 20px;
     color: #AAA;
     cursor: pointer;
-    background-color: #222222;
+    background: #222222;
     border: none;
   }
   .head:hover {
-    background-color: #333;
+    background: #333;
   }
 
   .head,
   .head:hover {
-    transition: background-color .2s ease-out;
+    transition: background .2s ease-out;
   }
 
   .body {
@@ -63,6 +63,6 @@ export default {
     height: 100%;
     width: 2px;
     position: absolute;
-    background-color: #AAA;
+    background: #AAA;
   }
 </style>
